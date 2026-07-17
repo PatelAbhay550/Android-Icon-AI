@@ -11,7 +11,7 @@
     <meta name="keywords" content="AI app icon generator, Android icon maker, iOS icon creator, free AI tools, Puter.js, app design">
     <meta name="author" content="Android Icon AI">
 
-    <!-- Open Graph Tags (Facebook, LinkedIn, Discord, etc.) -->
+    <!-- Open Graph Tags -->
     <meta property="og:title" content="Android Icon AI - Free AI App Icon Generator">
     <meta property="og:description" content="Generate premium, high-definition Android and iOS app icons instantly in your browser using advanced AI models.">
     <meta property="og:type" content="website">
@@ -47,135 +47,445 @@
     <script src="https://js.puter.com/v2/"></script>
     
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; color: #333; margin: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px; }
-        .generator-container, .guidance-panel { background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 600px; padding: 25px; margin-bottom: 20px; }
-        .header { text-align: center; color: #2c3e50; font-size: 24px; font-weight: 700; margin-bottom: 5px; }
-        .subtext { text-align: center; color: #7f8c8d; font-size: 14px; margin-bottom: 20px; }
-        .controls-panel { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
-        label { font-weight: 600; color: #34495e; font-size: 14px; }
-        select, textarea { padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; width: 100%; box-sizing: border-box; }
-        select { background-color: #f8f9fa; cursor: pointer; }
-        textarea { resize: vertical; min-height: 80px; }
-        .checkbox-container { display: flex; align-items: center; gap: 8px; font-size: 14px; color: #34495e; margin-top: 5px; }
-        .generate-button { background-color: #2e3b4e; color: white; border: none; padding: 15px 25px; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; width: 100%; transition: background-color 0.2s; }
-        .generate-button:hover { background-color: #1e2a3b; }
+        :root {
+            --primary-color: #2e3b4e;
+            --primary-hover: #1e2a3b;
+            --success-color: #27ae60;
+            --success-hover: #219653;
+            --background: #f0f2f5;
+            --surface: #ffffff;
+            --text-main: #2c3e50;
+            --text-muted: #7f8c8d;
+            --border-color: #dcdde1;
+            --focus-ring: rgba(46, 59, 78, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body { 
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            background-color: var(--background); 
+            color: var(--text-main); 
+            margin: 0; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            min-height: 100vh; 
+            padding: 20px; 
+            line-height: 1.5;
+        }
+
+        main {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .generator-container, .guidance-panel { 
+            background: var(--surface); 
+            border-radius: 12px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1); 
+            padding: 32px; 
+        }
+
+        .header { 
+            text-align: center; 
+            font-size: 1.75rem; 
+            font-weight: 700; 
+            margin: 0 0 8px 0; 
+            letter-spacing: -0.02em;
+        }
+
+        .subtext { 
+            text-align: center; 
+            color: var(--text-muted); 
+            font-size: 0.95rem; 
+            margin: 0 0 24px 0; 
+        }
+
+        .controls-form { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 16px; 
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        label { 
+            font-weight: 600; 
+            font-size: 0.9rem; 
+            color: var(--text-main);
+        }
+
+        select, textarea { 
+            padding: 14px; 
+            border: 1px solid var(--border-color); 
+            border-radius: 8px; 
+            font-size: 1rem; 
+            font-family: inherit;
+            width: 100%; 
+            transition: border-color 0.2s, box-shadow 0.2s;
+            min-height: 48px; /* Touch target size */
+            background-color: #fafbfc;
+        }
+
+        select { cursor: pointer; appearance: auto; }
         
-        .download-button { background-color: #27ae60; color: white; border: none; padding: 15px 25px; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; width: 100%; margin-top: 15px; transition: background-color 0.2s; display: none; }
-        .download-button:hover { background-color: #219653; }
+        textarea { 
+            resize: vertical; 
+            min-height: 100px; 
+        }
+
+        select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px var(--focus-ring);
+            background-color: var(--surface);
+        }
+
+        .checkbox-container { 
+            display: flex; 
+            align-items: flex-start; 
+            gap: 10px; 
+            margin-top: 4px;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+            cursor: pointer;
+        }
+
+        .checkbox-container label {
+            font-weight: normal;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            line-height: 1.4;
+        }
+
+        button {
+            border: none; 
+            padding: 16px 24px; 
+            border-radius: 8px; 
+            font-size: 1rem; 
+            font-weight: 600; 
+            cursor: pointer; 
+            width: 100%; 
+            transition: all 0.2s ease; 
+            min-height: 52px; /* Large touch target */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        button:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 3px var(--focus-ring);
+        }
+
+        .generate-button { 
+            background-color: var(--primary-color); 
+            color: white; 
+            margin-top: 10px;
+        }
+
+        .generate-button:hover:not(:disabled) { 
+            background-color: var(--primary-hover); 
+        }
+
+        .generate-button:disabled {
+            background-color: var(--border-color);
+            color: var(--text-muted);
+            cursor: not-allowed;
+        }
         
-        .output-container { margin-top: 25px; min-height: 300px; border: 2px dashed #95a5a6; border-radius: 8px; display: flex; align-items: center; justify-content: center; background-color: #ecf0f1; position: relative; overflow: hidden; }
-        .output-placeholder { color: #7f8c8d; font-size: 16px; text-align: center; }
-        #generated-image { max-width: 100%; max-height: 100%; object-fit: contain; position: absolute; top: 0; left: 0; }
-        .guidance-panel h3 { margin-top: 0; color: #c0392b; text-align: center; font-size: 20px; }
-        .guidance-panel p { color: #7f8c8d; text-align: center; font-size: 14px; }
-        .tips-list { list-style-type: disc; padding-left: 20px; margin-top: 15px; color: #34495e; font-size: 14px; line-height: 1.6; }
-        .tips-list li { margin-bottom: 8px; }
+        .download-button { 
+            background-color: var(--success-color); 
+            color: white; 
+            margin-top: 16px; 
+            display: none; 
+        }
+
+        .download-button:hover { 
+            background-color: var(--success-hover); 
+        }
+        
+        .output-container { 
+            margin-top: 24px; 
+            aspect-ratio: 1 / 1;
+            width: 100%;
+            border: 2px dashed var(--border-color); 
+            border-radius: 12px; 
+            display: flex; 
+            flex-direction: column;
+            align-items: center; 
+            justify-content: center; 
+            background-color: #fafbfc; 
+            position: relative; 
+            overflow: hidden; 
+            transition: all 0.3s ease;
+        }
+
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-muted);
+            text-align: center;
+            padding: 20px;
+        }
+
+        .empty-state svg {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 12px;
+            opacity: 0.6;
+        }
+
+        .empty-state p { margin: 0; font-size: 0.95rem; }
+
+        .spinner {
+            width: 36px;
+            height: 36px;
+            border: 3px solid rgba(46, 59, 78, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 12px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        #generated-image { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            position: absolute; 
+            top: 0; 
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        #generated-image.loaded {
+            opacity: 1;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.9rem;
+            margin-top: 8px;
+            text-align: center;
+            display: none;
+        }
+
+        .guidance-panel h2 { 
+            margin: 0 0 16px 0; 
+            color: var(--text-main); 
+            font-size: 1.25rem; 
+        }
+
+        .guidance-panel p { 
+            color: var(--text-muted); 
+            font-size: 0.95rem; 
+            margin: 0 0 16px 0;
+        }
+
+        .tips-list { 
+            list-style-type: none; 
+            padding: 0; 
+            margin: 0; 
+            color: var(--text-main); 
+            font-size: 0.95rem; 
+        }
+
+        .tips-list li { 
+            margin-bottom: 12px; 
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .tips-list li::before {
+            content: "•";
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: absolute;
+            left: 8px;
+            top: -2px;
+        }
     </style>
 </head>
 <body>
-    <div class="generator-container">
-        <h1 class="header">Android Icon AI - Free AI app icon generator</h1>
-        <p class="subtext">Powered by Puter.js, a free Android icon generator</p>
-        
-        <div class="controls-panel">
-            <label for="model-select">1. Choose AI Model:</label>
-            <select id="model-select">
-                <option value="gpt-image-2">DALL-E 3 (gpt-image-2)</option>
-                <option value="black-forest-labs/flux-schnell">Flux Schnell (Fast & High Quality)</option>
-                <option value="stabilityai/stable-diffusion-3-medium">Stable Diffusion 3 Medium</option>
-            </select>
+    <main>
+        <section class="generator-container">
+            <h1 class="header">Android Icon AI</h1>
+            <p class="subtext">Free AI app icon generator powered by Puter.js</p>
+            
+            <form id="generator-form" class="controls-form" onsubmit="event.preventDefault();">
+                <div class="input-group">
+                    <label for="model-select">AI Generation Model</label>
+                    <select id="model-select" aria-label="Select AI Model">
+                        <option value="gpt-image-2">DALL-E 3 (High Fidelity)</option>
+                        <option value="black-forest-labs/flux-schnell">Flux Schnell (Fast & Detailed)</option>
+                        <option value="stabilityai/stable-diffusion-3-medium">Stable Diffusion 3 Medium</option>
+                    </select>
+                </div>
 
-            <label for="preset-select">2. Choose Asset Type Preset:</label>
-            <select id="preset-select">
-                <option value="ios-android-app-icon-3d-gradient">Premium 3D App Icon (iOS/Android)</option>
-                <option value="minimalist-vector-symbol">Minimalist Vector Symbol</option>
-                <option value="geometric-faceted-design">Geometric Faceted Design</option>
-            </select>
+                <div class="input-group">
+                    <label for="preset-select">Visual Style Preset</label>
+                    <select id="preset-select" aria-label="Select visual style preset">
+                        <option value="ios-android-app-icon-3d-gradient">Premium 3D App Icon</option>
+                        <option value="minimalist-vector-symbol">Minimalist Vector Symbol</option>
+                        <option value="geometric-faceted-design">Geometric Faceted Design</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label for="prompt-input">Core Prompt</label>
+                    <textarea id="prompt-input" placeholder="e.g., A running shoe with vibrant neon gradients" required aria-required="true"></textarea>
+                </div>
+                
+                <div class="checkbox-container">
+                    <input type="checkbox" id="fidelity-check" checked>
+                    <label for="fidelity-check">Apply structural guardrails (Centers silhouette, forces square aspect ratio, prevents text/watermarks)</label>
+                </div>
+                
+                <button type="submit" id="generate-button" class="generate-button">
+                    <span>Generate Asset</span>
+                </button>
+            </form>
+
+            <div id="error-display" class="error-message" aria-live="polite"></div>
             
-            <label for="prompt-input">3. Define Core Prompt:</label>
-            <textarea id="prompt-input" placeholder="e.g., fitness tracker app with running figure and vibrant gradient colors"></textarea>
-            
-            <div class="checkbox-container">
-                <input type="checkbox" id="fidelity-check" checked>
-                <label for="fidelity-check">4. Activate Fidelity Guardrails (Clear Anatomy, Centered Silhouette, No Distortion)</label>
+            <div class="output-container" id="output-view" aria-live="polite" aria-busy="false">
+                <div class="empty-state" id="initial-state">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    <p>Your generated icon will appear here</p>
+                </div>
+                <div class="empty-state" id="loading-state" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Generating high-quality asset...</p>
+                </div>
             </div>
-        </div>
+            
+            <button id="download-button" class="download-button" aria-label="Download generated image">
+                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                <span>Download Icon</span>
+            </button>
+        </section>
         
-        <button id="generate-button" class="generate-button">Generate Asset</button>
-        
-        <div class="output-container" id="output-view">
-            <p class="output-placeholder">Generating Assets...</p>
-        </div>
-        
-        <button id="download-button" class="download-button">Download Asset</button>
-    </div>
-    
-    <div class="guidance-panel">
-        <h3>How to Prevent "Slop": The Guidance Checklist</h3>
-        <p>This generator automatically applies strict constraints based on presets. To guarantee premium output, remember to use these principles in your core prompt:</p>
-        <ul class="tips-list">
-            <li><b>Specify Materials:</b> Define textures like faceted polymer, crystal glass, brushed metal, or opaque plastic.</li>
-            <li><b>Define Lighting:</b> Describe clean, directional lighting (e.g., soft top-down ambient lighting, rear backlighting).</li>
-            <li><b>Centered Silhouette:</b> For symbols and icons, explicitly request a strong, centered silhouette on a clean background.</li>
-            <li><b>Explicitly Forbid Distortion:</b> The generator will append constraints, but adding 'perfectly rendered', 'razor-sharp', or 'no blur/noise' helps.</li>
-        </ul>
-    </div>
+        <aside class="guidance-panel">
+            <h2>Prompting Best Practices</h2>
+            <p>For the best results, incorporate these elements into your core prompt:</p>
+            <ul class="tips-list">
+                <li><strong>Specify Materials:</strong> Mention textures like frosted glass, brushed aluminum, or matte polymer.</li>
+                <li><strong>Define Lighting:</strong> Use phrases like "soft studio lighting" or "dramatic edge highlights."</li>
+                <li><strong>Keep it Focused:</strong> Describe a single, clear subject rather than complex scenes.</li>
+                <li><strong>Avoid Text:</strong> AI struggles with typography; focus purely on the symbol/logo mark.</li>
+            </ul>
+        </aside>
+    </main>
     
     <script>
-        const downloadButton = document.getElementById("download-button");
+        const form = document.getElementById('generator-form');
+        const generateBtn = document.getElementById('generate-button');
+        const downloadBtn = document.getElementById('download-button');
+        const outputContainer = document.getElementById('output-view');
+        const initialState = document.getElementById('initial-state');
+        const loadingState = document.getElementById('loading-state');
+        const errorDisplay = document.getElementById('error-display');
+        let currentGeneratedSrc = null;
 
-        document.getElementById('generate-button').addEventListener('click', async function() {
-            const userPrompt = document.getElementById('prompt-input').value;
+        form.addEventListener('submit', async function() {
+            const userPrompt = document.getElementById('prompt-input').value.trim();
             const preset = document.getElementById('preset-select').value;
             const modelSelect = document.getElementById('model-select').value;
             const fidelityFlag = document.getElementById('fidelity-check').checked;
-            const outputContainer = document.getElementById('output-view');
             
-            if (!userPrompt.trim()) {
-                outputContainer.innerHTML = '<p class="output-placeholder" style="color: red;">Please enter a prompt first.</p>';
-                return;
-            }
+            if (!userPrompt) return; // Handled by HTML5 required attribute
 
-            // Construct refined, non-slop prompt string
-            const finalPrompt = constructRefinedPrompt(userPrompt, preset, fidelityFlag);
-            console.log("Prompt:", finalPrompt);
-            console.log("Selected Model:", modelSelect);
+            // Reset UI for loading
+            errorDisplay.style.display = 'none';
+            downloadBtn.style.display = 'none';
+            generateBtn.disabled = true;
+            generateBtn.querySelector('span').textContent = 'Generating...';
             
-            // Update UI to show loading state and hide download button
-            outputContainer.innerHTML = '<p class="output-placeholder">Generating Premium Asset...<br>Please wait.</p>';
-            downloadButton.style.display = 'none';
+            // Clear previous image if exists
+            const oldImg = document.getElementById('generated-image');
+            if (oldImg) oldImg.remove();
+
+            initialState.style.display = 'none';
+            loadingState.style.display = 'flex';
+            outputContainer.setAttribute('aria-busy', 'true');
+            outputContainer.style.borderStyle = 'solid';
+            outputContainer.style.borderColor = 'var(--primary-color)';
+
+            const finalPrompt = constructRefinedPrompt(userPrompt, preset, fidelityFlag);
             
             try {
-                // Call Puter.js AI generation passing the dynamic model variable
                 const imageElement = await puter.ai.txt2img(finalPrompt, {
                     model: modelSelect
                 });
                 
-                // Style the returned image element and append it
+                // Configure generated image
                 imageElement.id = 'generated-image';
-                imageElement.style.maxWidth = '100%';
-                imageElement.style.maxHeight = '100%';
-                imageElement.style.objectFit = 'contain';
+                imageElement.alt = `Generated app icon for: ${userPrompt}`;
                 
-                // Clear the loading text, inject the image, and reveal the download button
-                outputContainer.innerHTML = ''; 
+                // Handle image load event for smooth fade-in
+                imageElement.onload = () => {
+                    loadingState.style.display = 'none';
+                    outputContainer.setAttribute('aria-busy', 'false');
+                    outputContainer.style.borderColor = 'var(--border-color)';
+                    imageElement.classList.add('loaded');
+                    
+                    // Show download options
+                    currentGeneratedSrc = imageElement.src;
+                    downloadBtn.style.display = 'flex';
+                };
+
                 outputContainer.appendChild(imageElement);
-                downloadButton.style.display = 'block';
                 
             } catch (error) {
-                console.error("Image generation failed:", error);
-                outputContainer.innerHTML = `<p class="output-placeholder" style="color: red;">Generation Failed: ${error.message || error.error?.message || 'Unknown error'}</p>`;
+                console.error("Generation failed:", error);
+                
+                // Restore UI on error
+                loadingState.style.display = 'none';
+                initialState.style.display = 'flex';
+                outputContainer.setAttribute('aria-busy', 'false');
+                outputContainer.style.borderStyle = 'dashed';
+                outputContainer.style.borderColor = 'var(--border-color)';
+                
+                const errorMsg = error.message || error.error?.message || 'An unexpected error occurred.';
+                errorDisplay.textContent = `Error: ${errorMsg}`;
+                errorDisplay.style.display = 'block';
+            } finally {
+                generateBtn.disabled = false;
+                generateBtn.querySelector('span').textContent = 'Generate Asset';
             }
         });
 
-        // Download functionality
-        downloadButton.addEventListener('click', function() {
-            const generatedImg = document.getElementById('generated-image');
-            
-            if (generatedImg && generatedImg.src) {
+        downloadBtn.addEventListener('click', function() {
+            if (currentGeneratedSrc) {
                 const link = document.createElement('a');
-                link.href = generatedImg.src;
-                link.download = `android-icon-${Date.now()}.png`;
+                link.href = currentGeneratedSrc;
+                // Generate a clean filename based on a snippet of the prompt
+                const cleanPrompt = document.getElementById('prompt-input').value
+                    .trim().replace(/[^a-z0-9]/gi, '-').substring(0, 20).toLowerCase();
+                link.download = `icon-${cleanPrompt}-${Date.now()}.png`;
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
@@ -183,22 +493,18 @@
         });
 
         function constructRefinedPrompt(userPrompt, preset, fidelityFlag) {
-            // "System Prompt" equivalent prepended constraints
             let prepended = "A professional-grade, high-definition asset for use as a 1:1 square digital icon or symbol. All elements must be centered and razor-sharp. No text, no monograms, no other brand logos. The edges of the canvas are sharp and square. ";
             
-            // Append preset constraints
             if (preset === 'ios-android-app-icon-3d-gradient') {
-                prepended += "The style is sophisticated 3D with perfectly smooth geometric facets catching the light. The background is a clean. ";
+                prepended += "The style is sophisticated 3D with perfectly smooth geometric facets catching the light. The background is clean. ";
             } else if (preset === 'minimalist-vector-symbol') {
                 prepended += "The style is ultra-minimalist flat vector art with geometric clarity and no gradients. The silhouette is central and bold. The background is solid pastel white. ";
             } else if (preset === 'geometric-faceted-design') {
                 prepended += "The style is interlocking geometric shapes creating a faceted design, using translucent and opaque materials like colored glass and polymer. Edge lighting emphasizes the forms. ";
             }
             
-            // Combine with user input
             let finalPrompt = prepended + "Subject: " + userPrompt + ". ";
             
-            // Append fidelity guardrails if checked
             if (fidelityFlag) {
                 finalPrompt += "Ensure perfect human anatomy, clean geometry, and a razor-sharp render. Absolutely no blur, noise, mud, distortion, or amorphous elements. Strong centered silhouette. ";
             }
