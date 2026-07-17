@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Android Icon AI - Clean Generator</title>
+    <link rel="icon" type="icon/png" href="/favicon.png"/>
     
     <!-- SEO & Meta -->
     <meta name="description" content="Generate professional Android icons using AI.">
@@ -14,8 +15,8 @@
     <style>
         /* --- Design System & Variables --- */
         :root {
-            --brand: #4f46e5;       /* Solid Indigo */
-            --brand-hover: #4338ca;
+            --brand: #6366f1;       /* Indigo */
+            --brand-hover: #4f46e5;
             --brand-light: #e0e7ff;
             --bg-page: #f9fafb;
             --bg-surface: #ffffff;
@@ -32,6 +33,10 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html {
+            scroll-behavior: smooth;
+        }
 
         body {
             font-family: system-ui, -apple-system, sans-serif;
@@ -56,6 +61,10 @@
             padding: 20px 0;
             border-bottom: 1px solid var(--border);
             margin-bottom: 40px;
+            background: var(--bg-page);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
         
         .logo-area {
@@ -71,8 +80,8 @@
         .logo-area img { width: 32px; height: 32px; border-radius: var(--radius-sm); }
         
         .nav-links { display: flex; gap: 24px; }
-        .nav-links a { text-decoration: none; color: var(--text-muted); font-weight: 500; font-size: 0.95rem; }
-        .nav-links a:hover { color: var(--text-main); }
+        .nav-links a { text-decoration: none; color: var(--text-muted); font-weight: 500; font-size: 0.95rem; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--brand); }
         
         .nav-actions { display: flex; align-items: center; gap: 16px; }
         
@@ -84,7 +93,9 @@
             cursor: pointer;
             font-weight: 600;
             color: var(--text-main);
+            transition: all 0.2s;
         }
+        .btn-outline:hover { background: var(--bg-surface); }
         
         .btn-primary {
             padding: 10px 20px;
@@ -103,20 +114,41 @@
         .btn-primary:hover:not(:disabled) { background: var(--brand-hover); }
         .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
 
-        /* --- Hero Section --- */
-        .hero { text-align: center; margin-bottom: 48px; }
+        /* --- Hero Section & Brand Underline --- */
+        .hero { text-align: center; margin: 40px 0 64px 0; scroll-margin-top: 100px; }
+        
         .badge {
             display: inline-block;
-            padding: 4px 12px;
+            padding: 6px 16px;
             background: var(--brand-light);
             color: var(--brand);
             border-radius: 99px;
             font-size: 0.85rem;
             font-weight: 600;
-            margin-bottom: 16px;
+            margin-bottom: 24px;
         }
-        .hero h1 { font-size: 3rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 16px; line-height: 1.1; }
-        .hero h1 span { color: var(--brand); } /* Replaced gradient with solid brand color */
+
+        .hero h1 { font-size: 3.5rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 20px; line-height: 1.2; }
+        
+        .underline-curly {
+            position: relative;
+            display: inline-block;
+            color: var(--brand);
+        }
+        
+        .underline-curly::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 14px;
+            bottom: -6px;
+            left: 0;
+            /* SVG Data URI for the wavy line matching the brand color */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 20' preserveAspectRatio='none'%3E%3Cpath d='M0,15 Q25,5 50,15 T100,15' fill='none' stroke='%236366f1' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+        }
+
         .hero p { color: var(--text-muted); font-size: 1.125rem; max-width: 600px; margin: 0 auto; }
 
         /* --- Main Workspace --- */
@@ -124,7 +156,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 32px;
-            margin-bottom: 64px;
+            margin-bottom: 80px;
         }
 
         .panel {
@@ -147,16 +179,17 @@
         .input-wrapper { position: relative; }
         textarea {
             width: 100%;
-            min-height: 100px;
-            padding: 12px;
+            min-height: 120px;
+            padding: 16px;
             border: 1px solid var(--border);
             border-radius: var(--radius-md);
             font-family: inherit;
             font-size: 1rem;
             resize: vertical;
             transition: border-color 0.2s;
+            background: var(--bg-page);
         }
-        textarea:focus, select:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-light); }
+        textarea:focus, select:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-light); background: var(--bg-surface); }
         
         .char-count {
             position: absolute;
@@ -173,7 +206,7 @@
             border: 1px solid var(--border);
             border-radius: var(--radius-md);
             font-size: 1rem;
-            background: #fff;
+            background: var(--bg-page);
             cursor: pointer;
             appearance: auto;
         }
@@ -191,6 +224,7 @@
             cursor: pointer;
             transition: all 0.2s;
             user-select: none;
+            background: var(--bg-page);
         }
         .pill-group label:hover { border-color: var(--border-hover); color: var(--text-main); }
         .pill-group input[type="radio"]:checked + label {
@@ -200,21 +234,22 @@
         }
 
         /* Background Selectors */
-        .bg-selector { display: flex; gap: 12px; }
+        .bg-selector { display: flex; gap: 16px; }
         .bg-selector input[type="radio"] { display: none; }
         .bg-selector label {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             cursor: pointer;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
+            font-weight: 500;
         }
         .color-swatch {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
             border: 2px solid var(--border);
             transition: all 0.2s;
             display: flex;
@@ -226,24 +261,25 @@
         .bg-selector input[type="radio"]:checked + label .color-swatch {
             border-color: var(--brand);
             transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
         }
-        .swatch-transparent { background: repeating-conic-gradient(#f3f4f6 0% 25%, #fff 0% 50%) 50% / 10px 10px; }
+        .swatch-transparent { background: repeating-conic-gradient(#e5e7eb 0% 25%, #fff 0% 50%) 50% / 12px 12px; }
         .swatch-white { background: #ffffff; }
         .swatch-dark { background: #1f2937; }
 
         /* Custom Toggle Switch */
-        .toggle-group { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding-top: 12px; border-top: 1px solid var(--border); }
+        .toggle-group { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding-top: 16px; border-top: 1px solid var(--border); }
         .toggle-text strong { display: block; font-size: 0.95rem; }
         .toggle-text span { font-size: 0.85rem; color: var(--text-muted); }
         
-        .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
+        .switch { position: relative; display: inline-block; width: 44px; height: 24px; flex-shrink: 0; }
         .switch input { opacity: 0; width: 0; height: 0; }
-        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px; }
-        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--border-hover); transition: .4s; border-radius: 24px; }
+        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; box-shadow: 0 1px 2px rgba(0,0,0,0.2); }
         input:checked + .slider { background-color: var(--brand); }
         input:checked + .slider:before { transform: translateX(20px); }
 
-        .credit-text { text-align: center; display: block; font-size: 0.8rem; color: var(--text-muted); margin-top: 8px; }
+        .credit-text { text-align: center; display: block; font-size: 0.8rem; color: var(--text-muted); margin-top: 12px; font-weight: 500; }
 
         /* --- Preview Panel --- */
         .preview-header {
@@ -262,8 +298,10 @@
             display: flex; align-items: center; justify-content: center;
             cursor: pointer;
             color: var(--text-main);
+            transition: all 0.2s;
         }
-        .icon-btn:hover { background: var(--bg-page); }
+        .icon-btn:hover:not(:disabled) { background: var(--bg-page); border-color: var(--border-hover); }
+        .icon-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
         .image-display {
             background: var(--bg-page);
@@ -280,7 +318,7 @@
 
         #generated-image { width: 100%; height: 100%; object-fit: contain; display: none; }
         
-        .placeholder-text { color: var(--text-muted); font-size: 0.95rem; text-align: center; }
+        .placeholder-text { color: var(--text-muted); font-size: 0.95rem; text-align: center; padding: 0 20px; }
         
         .spinner {
             display: none;
@@ -292,19 +330,167 @@
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* --- Error State --- */
         #error-msg {
             color: var(--danger);
             font-size: 0.9rem;
             margin-top: 12px;
             text-align: center;
             display: none;
+            padding: 8px;
+            background: #fef2f2;
+            border-radius: var(--radius-sm);
+        }
+
+        /* --- Page Sections (Features, How It Works, Pricing) --- */
+        .page-section {
+            padding: 80px 0;
+            border-top: 1px solid var(--border);
+            scroll-margin-top: 80px;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* Grids */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .feature-card {
+            background: var(--bg-surface);
+            padding: 32px;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--brand-light);
+            color: var(--brand);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px auto;
+        }
+
+        .feature-card h3 { font-size: 1.25rem; margin-bottom: 12px; }
+        .feature-card p { color: var(--text-muted); }
+
+        /* Steps Layout */
+        .step-list {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .step-item {
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+            background: var(--bg-surface);
+            padding: 24px;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+        }
+        
+        .step-num {
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--brand);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+        
+        .step-content h3 { font-size: 1.2rem; margin-bottom: 8px; }
+        .step-content p { color: var(--text-muted); margin: 0; }
+
+        /* Pricing Layout */
+        .pricing-card {
+            background: var(--bg-surface);
+            padding: 40px 32px;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .pricing-card.popular {
+            border: 2px solid var(--brand);
+            position: relative;
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--brand);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 99px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .price { font-size: 3rem; font-weight: 800; margin: 24px 0 8px 0; }
+        .price span { font-size: 1rem; font-weight: 500; color: var(--text-muted); }
+        .pricing-features { list-style: none; padding: 0; margin: 24px 0 32px 0; text-align: left; }
+        .pricing-features li { padding: 12px 0; border-bottom: 1px solid var(--border); color: var(--text-main); display: flex; align-items: center; gap: 12px; }
+        .pricing-features li svg { color: var(--brand); flex-shrink: 0; }
+        .pricing-card .btn-primary, .pricing-card .btn-outline { width: 100%; margin-top: auto; }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            margin-top: 40px;
         }
 
         /* --- Responsive --- */
         @media (max-width: 900px) {
             .workspace { grid-template-columns: 1fr; }
             .nav-links { display: none; }
+            .hero h1 { font-size: 2.5rem; }
         }
     </style>
 </head>
@@ -313,24 +499,24 @@
     <div class="app-wrapper">
         <header>
             <a href="#" class="logo-area">
-                <img src="/favicon.png" alt="Android Icon AI" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0ibm9uZSI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiBmaWxsPSIjNGY0NmU1IiByeD0iNiIvPjwvc3ZnPg=='">
+                <img src="/favicon.png" alt="Android Icon AI" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0ibm9uZSI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiBmaWxsPSIjNjM2NmYxIiByeD0iNiIvPjwvc3ZnPg=='">
                 Android Icon AI
             </a>
             <nav class="nav-links">
-                <a href="#">Home</a>
-                <a href="#">Features</a>
-                <a href="#">Pricing</a>
-                <a href="#">Docs</a>
+                <a href="#generator">Generator</a>
+                <a href="#features">Features</a>
+                <a href="#how-it-works">How it Works</a>
+                <a href="#pricing">Pricing</a>
             </nav>
             <div class="nav-actions">
-                <button class="btn-outline">Sign In</button>
+                <a href="#generator" class="btn-outline" style="text-decoration: none;">Try for Free</a>
             </div>
         </header>
 
         <main>
-            <section class="hero">
-                <div class="badge">✨ Powered by AI</div>
-                <h1>Text to Android Icon <span>Generator</span></h1>
+            <section id="generator" class="hero">
+                <div class="badge">✨ Powered by Puter.js</div>
+                <h1>Free Android Icon <span class="underline-curly">Generator</span></h1>
                 <p>Describe your app in words and let AI create a professional, high-quality Android app icon for you.</p>
             </section>
 
@@ -406,8 +592,9 @@
                             </label>
                         </div>
 
-                        <button type="submit" id="generate-btn" class="btn-primary" style="width: 100%;">
-                            <span>✨ Generate Icon</span>
+                        <button type="submit" id="generate-btn" class="btn-primary" style="width: 100%; padding: 14px;">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            <span>Generate Icon</span>
                         </button>
                         <span class="credit-text">1 generation = 1 credit</span>
                         
@@ -433,7 +620,108 @@
                     </div>
                 </div>
             </section>
+
+            <!-- Features Section -->
+            <section id="features" class="page-section">
+                <div class="section-header">
+                    <h2>Everything you need for perfect icons</h2>
+                    <p>Designed specifically for mobile developers and UI designers.</p>
+                </div>
+                
+                <div class="grid-3">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                        </div>
+                        <h3>AI-Powered Fidelity</h3>
+                        <p>Utilizing industry-leading models like DALL-E 3 to ensure crisp, coherent, and highly detailed visual assets without the typical AI artifacts.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path></svg>
+                        </div>
+                        <h3>Developer Ready</h3>
+                        <p>Perfect 1:1 square aspect ratios, calculated padding, and clean edges mean your icons are ready to be dropped straight into Android Studio.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                        </div>
+                        <h3>Privacy First</h3>
+                        <p>Your prompts and generated images run directly through the API. We do not store, track, or reuse your creative concepts.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- How It Works Section -->
+            <section id="how-it-works" class="page-section">
+                <div class="section-header">
+                    <h2>How it works</h2>
+                    <p>Create your perfect Android icon in 3 simple steps.</p>
+                </div>
+                
+                <div class="step-list">
+                    <div class="step-item">
+                        <div class="step-num">1</div>
+                        <div class="step-content">
+                            <h3>Describe your vision</h3>
+                            <p>Type out exactly what you want to see. Focus on the core subject, materials, and lighting for the best results.</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-num">2</div>
+                        <div class="step-content">
+                            <h3>Configure your options</h3>
+                            <p>Select your preferred AI engine, visual styling (like 3D or flat vector), and set your background requirements.</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-num">3</div>
+                        <div class="step-content">
+                            <h3>Generate and download</h3>
+                            <p>Hit generate and watch your icon come to life. Download the high-resolution file instantly.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pricing Section -->
+            <section id="pricing" class="page-section">
+                <div class="section-header">
+                    <h2>Simple, transparent pricing</h2>
+                    <p>Start for free, upgrade when you need more power.</p>
+                </div>
+                
+                <div class="grid-3" style="max-width: 800px; margin: 0 auto;">
+                    <div class="pricing-card">
+                        <h3>Starter</h3>
+                        <div class="price">Free</div>
+                        <ul class="pricing-features">
+                            <li><svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> 5 generations per day</li>
+                            <li><svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Standard resolution</li>
+                            <li><svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Community support</li>
+                        </ul>
+                        <button class="btn-outline">Get Started</button>
+                    </div>
+                    
+                    <div class="pricing-card popular">
+                        <div class="popular-badge">Most Popular</div>
+                        <h3>Pro</h3>
+                        <div class="price">$9<span>/mo</span></div>
+                        <ul class="pricing-features">
+                            <li><svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Unlimited generations</li>
+                            <li><svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Priority processing speed</li>
+                            <li><svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Commercial usage rights</li>
+                        </ul>
+                        <button class="btn-primary">Upgrade to Pro</button>
+                    </div>
+                </div>
+            </section>
         </main>
+        
+        <footer>
+            <p>&copy; 2026 Android Icon AI. Built for developers.</p>
+        </footer>
     </div>
 
     <script>
@@ -462,18 +750,20 @@
             const basePrompt = promptInput.value.trim();
             if (!basePrompt) return;
 
-            // Gather configurations
+            // Gather configurations from all working user options
             const model = document.getElementById('model').value;
             const style = document.querySelector('input[name="style"]:checked').value;
             const bg = document.querySelector('input[name="bg"]:checked').value;
             const safeArea = document.getElementById('safe-area').checked;
 
-            // Construct strict prompt
+            // Construct strict prompt bridging user selections and guardrails
             let finalPrompt = `A high-quality, professional app icon. Subject: ${basePrompt}. Style: ${style}. ${bg}. Center the main subject perfectly. `;
+            
             if (safeArea) {
                 finalPrompt += "Ensure ample padding and negative space around the edges of the canvas. Do not let the subject touch the edges. ";
             }
-            finalPrompt += "No text, no watermarks, no UI elements. Perfect square canvas.";
+            
+            finalPrompt += "No text, no letters, no monograms, no watermarks, no UI elements. Perfect square canvas.";
 
             // UI Loading State
             errorMsg.style.display = 'none';
@@ -485,13 +775,13 @@
             downloadBtn.disabled = true;
 
             try {
-                // Puter.js API Call
+                // Execute Puter.js API Call passing the dynamically selected model
                 const imageElement = await puter.ai.txt2img(finalPrompt, { model: model });
                 
                 // Inject image result
                 imgOutput.src = imageElement.src;
                 
-                // Wait for image to render before showing
+                // Wait for image to render before revealing
                 imgOutput.onload = () => {
                     spinner.style.display = 'none';
                     imgOutput.style.display = 'block';
@@ -507,7 +797,7 @@
                 errorMsg.style.display = 'block';
             } finally {
                 generateBtn.disabled = false;
-                btnText.textContent = '✨ Generate Icon';
+                btnText.textContent = 'Generate Icon';
             }
         });
 
