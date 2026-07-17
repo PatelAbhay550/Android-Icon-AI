@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Android Icon AI - Free AI app icon generator</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Free AI app icon generator. Create premium, high-definition Android and iOS icons instantly using advanced AI models like DALL-E 3 and Flux.">
+    <meta name="keywords" content="AI app icon generator, Android icon maker, iOS icon creator, free AI tools, Puter.js, app design">
+    <meta name="author" content="Android Icon AI">
+
+    <!-- Open Graph Tags (Facebook, LinkedIn, Discord, etc.) -->
+    <meta property="og:title" content="Android Icon AI - Free AI App Icon Generator">
+    <meta property="og:description" content="Generate premium, high-definition Android and iOS app icons instantly in your browser using advanced AI models.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://androidiconai.vercel.app/">
+    <meta property="og:image" content="https://androidiconai.vercel.app/og-image.jpg">
+    <meta property="og:site_name" content="Android Icon AI">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Android Icon AI - Free AI App Icon Generator">
+    <meta name="twitter:description" content="Generate premium, high-definition Android and iOS app icons instantly in your browser.">
+    <meta name="twitter:image" content="https://androidiconai.vercel.app/og-image.jpg">
+
+    <!-- JSON-LD SEO Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Android Icon AI",
+      "url": "https://androidiconai.vercel.app/",
+      "description": "A free, browser-based AI application that generates premium Android and iOS app icons using advanced image models.",
+      "applicationCategory": "DesignApplication",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+
+    <!-- Puter.js Library -->
+    <script src="https://js.puter.com/v2/"></script>
+    
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; color: #333; margin: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px; }
+        .generator-container, .guidance-panel { background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 600px; padding: 25px; margin-bottom: 20px; }
+        .header { text-align: center; color: #2c3e50; font-size: 24px; font-weight: 700; margin-bottom: 5px; }
+        .subtext { text-align: center; color: #7f8c8d; font-size: 14px; margin-bottom: 20px; }
+        .controls-panel { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
+        label { font-weight: 600; color: #34495e; font-size: 14px; }
+        select, textarea { padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; width: 100%; box-sizing: border-box; }
+        select { background-color: #f8f9fa; cursor: pointer; }
+        textarea { resize: vertical; min-height: 80px; }
+        .checkbox-container { display: flex; align-items: center; gap: 8px; font-size: 14px; color: #34495e; margin-top: 5px; }
+        .generate-button { background-color: #2e3b4e; color: white; border: none; padding: 15px 25px; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; width: 100%; transition: background-color 0.2s; }
+        .generate-button:hover { background-color: #1e2a3b; }
+        
+        .download-button { background-color: #27ae60; color: white; border: none; padding: 15px 25px; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; width: 100%; margin-top: 15px; transition: background-color 0.2s; display: none; }
+        .download-button:hover { background-color: #219653; }
+        
+        .output-container { margin-top: 25px; min-height: 300px; border: 2px dashed #95a5a6; border-radius: 8px; display: flex; align-items: center; justify-content: center; background-color: #ecf0f1; position: relative; overflow: hidden; }
+        .output-placeholder { color: #7f8c8d; font-size: 16px; text-align: center; }
+        #generated-image { max-width: 100%; max-height: 100%; object-fit: contain; position: absolute; top: 0; left: 0; }
+        .guidance-panel h3 { margin-top: 0; color: #c0392b; text-align: center; font-size: 20px; }
+        .guidance-panel p { color: #7f8c8d; text-align: center; font-size: 14px; }
+        .tips-list { list-style-type: disc; padding-left: 20px; margin-top: 15px; color: #34495e; font-size: 14px; line-height: 1.6; }
+        .tips-list li { margin-bottom: 8px; }
+    </style>
+</head>
+<body>
+    <div class="generator-container">
+        <h1 class="header">Android Icon AI - Free AI app icon generator</h1>
+        <p class="subtext">Powered by Puter.js, a free Android icon generator</p>
+        
+        <div class="controls-panel">
+            <label for="model-select">1. Choose AI Model:</label>
+            <select id="model-select">
+                <option value="gpt-image-2">DALL-E 3 (gpt-image-2)</option>
+                <option value="black-forest-labs/flux-schnell">Flux Schnell (Fast & High Quality)</option>
+                <option value="stabilityai/stable-diffusion-3-medium">Stable Diffusion 3 Medium</option>
+            </select>
+
+            <label for="preset-select">2. Choose Asset Type Preset:</label>
+            <select id="preset-select">
+                <option value="ios-android-app-icon-3d-gradient">Premium 3D App Icon (iOS/Android)</option>
+                <option value="minimalist-vector-symbol">Minimalist Vector Symbol</option>
+                <option value="geometric-faceted-design">Geometric Faceted Design</option>
+            </select>
+            
+            <label for="prompt-input">3. Define Core Prompt:</label>
+            <textarea id="prompt-input" placeholder="e.g., fitness tracker app with running figure and vibrant gradient colors"></textarea>
+            
+            <div class="checkbox-container">
+                <input type="checkbox" id="fidelity-check" checked>
+                <label for="fidelity-check">4. Activate Fidelity Guardrails (Clear Anatomy, Centered Silhouette, No Distortion)</label>
+            </div>
+        </div>
+        
+        <button id="generate-button" class="generate-button">Generate Asset</button>
+        
+        <div class="output-container" id="output-view">
+            <p class="output-placeholder">Generating Assets...</p>
+        </div>
+        
+        <button id="download-button" class="download-button">Download Asset</button>
+    </div>
+    
+    <div class="guidance-panel">
+        <h3>How to Prevent "Slop": The Guidance Checklist</h3>
+        <p>This generator automatically applies strict constraints based on presets. To guarantee premium output, remember to use these principles in your core prompt:</p>
+        <ul class="tips-list">
+            <li><b>Specify Materials:</b> Define textures like faceted polymer, crystal glass, brushed metal, or opaque plastic.</li>
+            <li><b>Define Lighting:</b> Describe clean, directional lighting (e.g., soft top-down ambient lighting, rear backlighting).</li>
+            <li><b>Centered Silhouette:</b> For symbols and icons, explicitly request a strong, centered silhouette on a clean background.</li>
+            <li><b>Explicitly Forbid Distortion:</b> The generator will append constraints, but adding 'perfectly rendered', 'razor-sharp', or 'no blur/noise' helps.</li>
+        </ul>
+    </div>
+    
+    <script>
+        const downloadButton = document.getElementById("download-button");
+
+        document.getElementById('generate-button').addEventListener('click', async function() {
+            const userPrompt = document.getElementById('prompt-input').value;
+            const preset = document.getElementById('preset-select').value;
+            const modelSelect = document.getElementById('model-select').value;
+            const fidelityFlag = document.getElementById('fidelity-check').checked;
+            const outputContainer = document.getElementById('output-view');
+            
+            if (!userPrompt.trim()) {
+                outputContainer.innerHTML = '<p class="output-placeholder" style="color: red;">Please enter a prompt first.</p>';
+                return;
+            }
+
+            // Construct refined, non-slop prompt string
+            const finalPrompt = constructRefinedPrompt(userPrompt, preset, fidelityFlag);
+            console.log("Prompt:", finalPrompt);
+            console.log("Selected Model:", modelSelect);
+            
+            // Update UI to show loading state and hide download button
+            outputContainer.innerHTML = '<p class="output-placeholder">Generating Premium Asset...<br>Please wait.</p>';
+            downloadButton.style.display = 'none';
+            
+            try {
+                // Call Puter.js AI generation passing the dynamic model variable
+                const imageElement = await puter.ai.txt2img(finalPrompt, {
+                    model: modelSelect
+                });
+                
+                // Style the returned image element and append it
+                imageElement.id = 'generated-image';
+                imageElement.style.maxWidth = '100%';
+                imageElement.style.maxHeight = '100%';
+                imageElement.style.objectFit = 'contain';
+                
+                // Clear the loading text, inject the image, and reveal the download button
+                outputContainer.innerHTML = ''; 
+                outputContainer.appendChild(imageElement);
+                downloadButton.style.display = 'block';
+                
+            } catch (error) {
+                console.error("Image generation failed:", error);
+                outputContainer.innerHTML = `<p class="output-placeholder" style="color: red;">Generation Failed: ${error.message || error.error?.message || 'Unknown error'}</p>`;
+            }
+        });
+
+        // Download functionality
+        downloadButton.addEventListener('click', function() {
+            const generatedImg = document.getElementById('generated-image');
+            
+            if (generatedImg && generatedImg.src) {
+                const link = document.createElement('a');
+                link.href = generatedImg.src;
+                link.download = `android-icon-${Date.now()}.png`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        });
+
+        function constructRefinedPrompt(userPrompt, preset, fidelityFlag) {
+            // "System Prompt" equivalent prepended constraints
+            let prepended = "A professional-grade, high-definition asset for use as a 1:1 square digital icon or symbol. All elements must be centered and razor-sharp. No text, no monograms, no other brand logos. The edges of the canvas are sharp and square. ";
+            
+            // Append preset constraints
+            if (preset === 'ios-android-app-icon-3d-gradient') {
+                prepended += "The style is sophisticated 3D with perfectly smooth geometric facets catching the light. The background is a clean. ";
+            } else if (preset === 'minimalist-vector-symbol') {
+                prepended += "The style is ultra-minimalist flat vector art with geometric clarity and no gradients. The silhouette is central and bold. The background is solid pastel white. ";
+            } else if (preset === 'geometric-faceted-design') {
+                prepended += "The style is interlocking geometric shapes creating a faceted design, using translucent and opaque materials like colored glass and polymer. Edge lighting emphasizes the forms. ";
+            }
+            
+            // Combine with user input
+            let finalPrompt = prepended + "Subject: " + userPrompt + ". ";
+            
+            // Append fidelity guardrails if checked
+            if (fidelityFlag) {
+                finalPrompt += "Ensure perfect human anatomy, clean geometry, and a razor-sharp render. Absolutely no blur, noise, mud, distortion, or amorphous elements. Strong centered silhouette. ";
+            }
+            
+            return finalPrompt.trim();
+        }
+    </script>
+</body>
+</html>
