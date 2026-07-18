@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI App Icon Generator - Create Android & iOS Icons Free</title>
     
-    <!-- SEO & Metadata -->
+    <!-- ========================================== -->
+    <!-- SEO & TECHNICAL METADATA (Preserved)       -->
+    <!-- ========================================== -->
     <meta name="description" content="Generate beautiful Android and iOS app icons using AI. Create 3D, flat, material and modern icons in seconds. Free online AI App Icon Generator.">
     <link rel="canonical" href="https://androidiconai.gennfree.in/">
     <link rel="icon" type="image/png" href="/favicon.png"/>
@@ -24,20 +26,28 @@
     <meta name="twitter:description" content="Generate premium, high-definition Android and iOS app icons instantly in your browser.">
     <meta name="twitter:image" content="https://androidiconai.gennfree.in/og-image.png">
 
-    <!-- Rich Schemas (WebApplication + WebSite + FAQPage + Organization) -->
+    <!-- Rich Schemas (SoftwareApplication + WebApplication + WebSite + FAQPage + Organization + BreadcrumbList) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@graph": [
         {
-          "@type": "WebApplication",
-          "@id": "https://androidiconai.gennfree.in/#application",
+          "@type": "SoftwareApplication",
+          "@id": "https://androidiconai.gennfree.in/#software",
           "name": "AI App Icon Generator",
           "url": "https://androidiconai.gennfree.in/",
           "description": "Create stunning Android and iOS app icons in seconds using advanced AI models.",
           "applicationCategory": "DesignApplication",
           "operatingSystem": "All",
           "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+        },
+        {
+          "@type": "WebApplication",
+          "@id": "https://androidiconai.gennfree.in/#application",
+          "name": "AI App Icon Generator",
+          "url": "https://androidiconai.gennfree.in/",
+          "applicationCategory": "DesignApplication",
+          "operatingSystem": "All"
         },
         {
           "@type": "WebSite",
@@ -51,6 +61,14 @@
           "@id": "https://androidiconai.gennfree.in/#organization",
           "name": "Gennfree",
           "url": "https://gennfree.in"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://androidiconai.gennfree.in/#breadcrumb",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://gennfree.in/" },
+            { "@type": "ListItem", "position": 2, "name": "AI App Icon Generator", "item": "https://androidiconai.gennfree.in/" }
+          ]
         },
         {
           "@type": "FAQPage",
@@ -68,624 +86,855 @@
     <!-- Puter.js Library -->
     <script src="https://js.puter.com/v2/"></script>
     
+    <!-- ========================================== -->
+    <!-- UI STYLES (From Mockup Reference)          -->
+    <!-- ========================================== -->
     <style>
-        /* --- Modern, Clean Design System (No AI Slop) --- */
+        /* CSS Variables for System-Based Light & Dark Mode */
         :root {
-            --brand: #0f172a;       /* Solid Slate 900 */
-            --brand-hover: #334155; /* Slate 700 */
-            --bg-page: #f8fafc;
-            --bg-glass: rgba(255, 255, 255, 0.9);
-            --bg-surface: #ffffff;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
-            --border-hover: #cbd5e1;
-            --radius-xl: 16px;
-            --radius-lg: 12px;
+            /* Light Mode Palette */
+            --bg-color: #f9fafb;
+            --surface-color: #ffffff;
+            --surface-input: #f3f4f6;
+            --border-color: #e5e7eb;
+            --text-main: #111827;
+            --text-muted: #6b7280;
+            --primary-color: #10b981; /* Darker green for light mode contrast */
+            --primary-hover: #059669;
+            --primary-text: #ffffff;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            --radius-lg: 16px;
             --radius-md: 8px;
-            --shadow-panel: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-            --transition: all 0.2s ease-in-out;
+            --radius-sm: 4px;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        
+        @media (prefers-color-scheme: dark) {
+            :root {
+                /* Dark Mode Palette (Matches screenshots) */
+                --bg-color: #0a0a0a;
+                --surface-color: #111111;
+                --surface-input: #000000;
+                --border-color: #222222;
+                --text-main: #ffffff;
+                --text-muted: #888888;
+                --primary-color: #6EE7B7; /* Mint green */
+                --primary-hover: #34d399;
+                --primary-text: #000000;
+                --card-shadow: none;
+            }
+        }
+
+        /* Global Reset & Typography */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
         body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg-page);
+            background-color: var(--bg-color);
             color: var(--text-main);
-            line-height: 1.6;
+            line-height: 1.5;
             -webkit-font-smoothing: antialiased;
+            padding-bottom: 80px; /* Space for mobile nav */
         }
 
-        .app-wrapper { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        button { font-family: inherit; }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
 
-        /* --- Navigation --- */
+        /* Header / Top Nav */
         header {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 20px 0; margin-bottom: 32px;
-            background: var(--bg-glass);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            position: sticky; top: 0; z-index: 100;
-            border-bottom: 1px solid var(--border);
-        }
-        
-        .logo-area {
-            display: flex; align-items: center; gap: 12px;
-            font-weight: 700; font-size: 1.25rem;
-            text-decoration: none; color: var(--text-main);
-        }
-        .logo-area svg { width: 28px; height: 28px; color: var(--brand); }
-        
-        .nav-links { display: flex; gap: 28px; }
-        .nav-links a { text-decoration: none; color: var(--text-muted); font-weight: 500; transition: var(--transition); }
-        .nav-links a:hover { color: var(--brand); }
-
-        /* --- UI Components --- */
-        .btn-primary {
-            background: var(--brand);
-            color: white; border: none;
-            padding: 14px 28px; border-radius: var(--radius-md);
-            font-weight: 600; font-size: 1.05rem;
-            cursor: pointer; transition: var(--transition);
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-        .btn-primary:hover:not(:disabled) {
-            background: var(--brand-hover);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
-        
-        .btn-outline {
-            background: transparent; color: var(--text-main);
-            border: 1px solid var(--border); padding: 10px 20px;
-            border-radius: var(--radius-md); font-weight: 600;
-            cursor: pointer; transition: var(--transition);
-        }
-        .btn-outline:hover { background: var(--bg-surface); border-color: var(--brand); }
-
-        /* --- Split Layout Header & Workspace --- */
-        .workspace {
-            display: grid; grid-template-columns: 1fr 1fr;
-            gap: 40px; min-height: 85vh; margin-bottom: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px 0;
         }
 
-        /* Left Column: Context & Form */
-        .hero-context { margin-bottom: 32px; }
-        h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 12px; }
-        h2 { font-size: 1.25rem; font-weight: 500; color: var(--text-muted); margin-bottom: 24px; }
-
-        .glass-panel {
-            background: var(--bg-surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-xl);
-            padding: 32px;
-            box-shadow: var(--shadow-panel);
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--primary-color);
         }
 
-        /* --- Conversational Input & Chips --- */
-        .prompt-container { position: relative; margin-bottom: 16px; }
-        textarea {
-            width: 100%; min-height: 140px;
-            padding: 20px; padding-bottom: 40px;
-            border: 2px solid var(--border);
-            border-radius: var(--radius-lg);
-            font-size: 1.1rem; resize: none;
-            transition: var(--transition);
-            background: #f8fafc;
+        .desktop-nav {
+            display: none;
+            gap: 32px;
+        }
+
+        .desktop-nav a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: color 0.2s;
+        }
+
+        .desktop-nav a:hover {
             color: var(--text-main);
         }
-        textarea:focus { outline: none; border-color: var(--brand); background: #fff; }
+
+        /* Mobile Bottom Nav */
+        .mobile-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--surface-color);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0 24px 0;
+            z-index: 100;
+        }
+
+        .mobile-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .mobile-nav-item.active {
+            color: var(--primary-color);
+        }
+
+        .mobile-nav-item svg { width: 20px; height: 20px; }
+
+        /* Hero Section */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            margin-top: 40px;
+            margin-bottom: 80px;
+        }
+
+        .hero-text h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-text p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 32px;
+            max-width: 500px;
+        }
+
+        /* Generator Box */
+        .generator-box {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .generator-box label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+        }
+
+        .generator-box textarea {
+            width: 100%;
+            background-color: var(--surface-input);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            color: var(--text-main);
+            padding: 16px;
+            font-size: 0.95rem;
+            min-height: 120px;
+            resize: none;
+            margin-bottom: 16px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
         
-        .chips-wrapper { margin-bottom: 24px; }
-        .chips-title { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
-        .chip-scroll { display: flex; flex-wrap: wrap; gap: 8px; }
+        .generator-box textarea:focus {
+            border-color: var(--primary-color);
+        }
+
+        .style-chips {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
         .chip {
-            padding: 8px 16px; background: var(--bg-surface);
-            border: 1px solid var(--border); border-radius: 99px;
-            font-size: 0.9rem; font-weight: 500; color: var(--text-muted);
-            cursor: pointer; transition: var(--transition);
-        }
-        .chip:hover { border-color: var(--brand); color: var(--text-main); }
-
-        /* --- Simplified Settings --- */
-        .settings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
-        .setting-group label { display: block; font-size: 0.9rem; font-weight: 600; margin-bottom: 8px; color: var(--text-main); }
-        select {
-            width: 100%; padding: 12px; border: 1px solid var(--border);
-            border-radius: var(--radius-md); font-size: 0.95rem;
-            background: var(--bg-surface); cursor: pointer; outline: none; transition: var(--transition);
-        }
-        select:focus { border-color: var(--brand); }
-
-        /* Style Grid (12 options) */
-        .style-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 24px; }
-        .style-grid input[type="radio"] { display: none; }
-        .style-grid label {
-            text-align: center; padding: 10px 4px;
-            border: 1px solid var(--border); border-radius: var(--radius-md);
-            font-size: 0.85rem; font-weight: 500; cursor: pointer; color: var(--text-muted);
-            transition: var(--transition); background: var(--bg-surface);
-        }
-        .style-grid input:checked + label {
-            background: var(--bg-page); border-color: var(--brand); color: var(--brand); font-weight: 600;
+            padding: 6px 12px;
+            background-color: var(--surface-input);
+            border: 1px solid var(--border-color);
+            border-radius: 99px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s;
         }
 
-        /* Simplified Toggles */
-        .toggle-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-top: 1px solid var(--border); }
-        .toggle-info strong { display: block; font-size: 0.95rem; }
-        .toggle-info span { font-size: 0.8rem; color: var(--text-muted); }
-        
-        .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
-        .switch input { opacity: 0; width: 0; height: 0; }
-        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--border); transition: .2s; border-radius: 24px; }
-        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .2s; border-radius: 50%; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
-        input:checked + .slider { background-color: var(--brand); }
-        input:checked + .slider:before { transform: translateX(20px); }
-
-        /* --- Right Column: Visual Proof & Results --- */
-        .visual-panel { display: flex; flex-direction: column; }
-        
-        /* Pre-generation Gallery */
-        .pre-gen-gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 20px; }
-        .gallery-item {
-            aspect-ratio: 1; border-radius: var(--radius-lg);
-            background-size: cover; background-position: center;
-            border: 1px solid var(--border);
-            position: relative; overflow: hidden;
+        .chip.active {
+            background-color: rgba(110, 231, 183, 0.1);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
         }
-        .gallery-item::after {
-            content: attr(data-tag); position: absolute; bottom: 8px; left: 8px;
-            background: var(--bg-surface); color: var(--text-main); padding: 4px 10px;
-            border-radius: 99px; font-size: 0.75rem; font-weight: 600;
-            border: 1px solid var(--border);
-        }
-        .gallery-title { text-align: center; margin-bottom: 24px; color: var(--text-main); font-weight: 600; }
 
-        /* Result State */
-        .result-state { display: none; background: var(--bg-surface); border-radius: var(--radius-xl); padding: 24px; border: 1px solid var(--border); box-shadow: var(--shadow-panel); text-align: center; }
-        
-        .mockup-tabs { display: flex; justify-content: center; gap: 12px; margin-bottom: 24px; }
-        .mockup-tab { padding: 6px 16px; border-radius: 99px; background: var(--bg-page); border: 1px solid var(--border); cursor: pointer; font-size: 0.9rem; font-weight: 500; transition: var(--transition); }
-        .mockup-tab.active { background: var(--text-main); color: white; border-color: var(--text-main); }
-
-        .mockup-container {
-            width: 100%; aspect-ratio: 1; margin: 0 auto 24px auto;
-            display: flex; align-items: center; justify-content: center;
-            background: #f1f5f9;
-            border-radius: var(--radius-lg); position: relative; overflow: hidden;
-            border: 1px solid var(--border);
+        .btn-primary {
+            width: 100%;
+            background-color: var(--primary-color);
+            color: var(--primary-text);
+            border: none;
+            border-radius: var(--radius-md);
+            padding: 16px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background-color 0.2s;
         }
-        
+
+        .btn-primary:hover:not(:disabled) { background-color: var(--primary-hover); }
+        .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+
+        /* Preview Box & Loader */
+        .preview-box {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            aspect-ratio: 1 / 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .preview-icon-placeholder {
+            width: 48px;
+            height: 48px;
+            color: var(--primary-color);
+            opacity: 0.5;
+        }
+
         #generated-icon {
-            width: 75%; height: 75%; object-fit: cover; transition: var(--transition);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
         }
-        
-        /* Mockup Styles Applied via JS */
-        .style-ios { border-radius: 22.5%; }
-        .style-android { border-radius: 50%; }
-        .style-play { border-radius: 12%; padding: 4px; background: white; }
 
-        .download-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        
-        /* Loading Spinner */
         .loader {
-            display: none; border: 3px solid var(--border);
-            border-top: 3px solid var(--brand); border-radius: 50%;
-            width: 48px; height: 48px; animation: spin 1s linear infinite; margin: 60px auto;
+            display: none;
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border-color);
+            border-top: 3px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* --- Content Sections --- */
-        .seo-section { max-width: 900px; margin: 100px auto; padding-top: 40px; border-top: 1px solid var(--border); }
-        .seo-section h3 { font-size: 1.75rem; font-weight: 700; margin-bottom: 24px; color: var(--text-main); }
-        .seo-section p { font-size: 1.05rem; color: var(--text-muted); margin-bottom: 20px; }
+        .download-overlay {
+            display: none;
+            position: absolute;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        .btn-download {
+            background-color: var(--surface-color);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 99px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            transition: border-color 0.2s;
+        }
+        .btn-download:hover { border-color: var(--primary-color); }
+
+        #error-msg {
+            color: #ef4444;
+            font-size: 0.85rem;
+            margin-top: 12px;
+            text-align: center;
+            display: none;
+        }
+
+        /* Sections Shared Styles */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        .link-text {
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Features Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin-bottom: 80px;
+        }
+
+        .feature-card {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+        }
+
+        .feature-icon {
+            width: 32px;
+            height: 32px;
+            background-color: rgba(110, 231, 183, 0.1);
+            color: var(--primary-color);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .feature-icon svg { width: 16px; height: 16px; }
+
+        .feature-card h3 { font-size: 1.1rem; margin-bottom: 8px; }
+        .feature-card p { font-size: 0.85rem; color: var(--text-muted); }
+
+        /* Recent Generations */
+        .recent-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 80px;
+        }
+
+        .recent-card {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            aspect-ratio: 1 / 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .recent-card svg {
+            width: 32px;
+            height: 32px;
+            color: var(--primary-color);
+            opacity: 0.7;
+        }
+
+        /* Workflow */
+        .workflow-section { margin-bottom: 80px; }
         
-        /* Tables for Data */
-        .data-table { width: 100%; border-collapse: collapse; margin-bottom: 32px; background: var(--bg-surface); border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border); }
-        .data-table th, .data-table td { padding: 16px; text-align: left; border-bottom: 1px solid var(--border); }
-        .data-table th { background: var(--bg-page); font-weight: 600; color: var(--text-main); border-bottom: 2px solid var(--border); }
+        .workflow-list {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            margin-top: 32px;
+        }
+
+        .workflow-step {
+            display: flex;
+            gap: 16px;
+            position: relative;
+        }
+
+        .workflow-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 40px;
+            bottom: -20px;
+            width: 1px;
+            background-color: var(--border-color);
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            background-color: var(--bg-color);
+            flex-shrink: 0;
+            z-index: 1;
+        }
         
-        /* FAQ Accordion */
-        .faq-item { border-bottom: 1px solid var(--border); padding: 20px 0; }
-        .faq-question { font-weight: 600; font-size: 1.1rem; color: var(--text-main); cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-        .faq-answer { display: none; color: var(--text-muted); padding-top: 12px; font-size: 1rem; }
+        .workflow-step:first-child .step-number {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .step-content h4 { font-size: 1.1rem; margin-bottom: 4px; }
+        .step-content p { font-size: 0.9rem; color: var(--text-muted); }
+
+        /* Pricing */
+        .pricing-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .pricing-card {
+            width: 100%;
+            max-width: 400px;
+            background-color: var(--surface-color);
+            border: 1px solid var(--primary-color);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            margin-top: 32px;
+            position: relative;
+        }
+
+        .pro-badge {
+            position: absolute;
+            top: -12px;
+            right: 24px;
+            background-color: var(--primary-color);
+            color: var(--primary-text);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: var(--radius-sm);
+        }
+
+        .pricing-card h3 { font-size: 1.25rem; margin-bottom: 16px; }
         
-        /* Testimonials */
-        .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
-        .testimonial-card { background: var(--bg-surface); padding: 24px; border-radius: var(--radius-lg); border: 1px solid var(--border); }
-        .stars { color: #111827; margin-bottom: 12px; font-size: 1.1rem; letter-spacing: 2px; }
+        .price {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+        
+        .price span { font-size: 1rem; color: var(--text-muted); font-weight: 400; }
+
+        .pricing-features {
+            text-align: left;
+            margin-bottom: 32px;
+        }
+
+        .pricing-features li {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .pricing-features li::before {
+            content: "✓";
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .btn-outline {
+            width: 100%;
+            background-color: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .btn-outline:hover { background-color: var(--surface-input); }
 
         /* Footer */
-        footer { background: var(--bg-surface); padding: 60px 0 40px 0; border-top: 1px solid var(--border); margin-top: 80px; }
-        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; max-width: 1280px; margin: 0 auto; padding: 0 24px; }
-        .footer-col h4 { font-weight: 600; margin-bottom: 16px; color: var(--text-main); }
-        .footer-col ul { list-style: none; }
-        .footer-col ul li { margin-bottom: 12px; }
-        .footer-col ul li a { color: var(--text-muted); text-decoration: none; transition: var(--transition); }
-        .footer-col ul li a:hover { color: var(--brand); }
-        
-        @media (max-width: 900px) {
-            .workspace, .testimonials-grid { grid-template-columns: 1fr; }
-            .footer-grid { grid-template-columns: 1fr 1fr; }
-            h1 { font-size: 2.5rem; }
-            .nav-links { display: none; }
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 40px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .copyright {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* Desktop Media Queries */
+        @media (min-width: 768px) {
+            body { padding-bottom: 0; }
+            .mobile-nav { display: none; }
+            .desktop-nav { display: flex; }
+            
+            .hero { grid-template-columns: 1fr 1fr; align-items: center; }
+            .hero-text h1 { font-size: 3.5rem; }
+            .features-grid { grid-template-columns: repeat(3, 1fr); }
+            .recent-grid { grid-template-columns: repeat(4, 1fr); }
+
+            .workflow-list {
+                flex-direction: row;
+                justify-content: center;
+                gap: 64px;
+                text-align: center;
+            }
+            
+            .workflow-step { flex-direction: column; align-items: center; width: 200px; }
+            .workflow-step:not(:last-child)::after {
+                left: 50%; top: 15px; width: calc(100% + 32px); height: 1px; bottom: auto;
+            }
+            
+            footer { flex-direction: row; justify-content: space-between; }
         }
     </style>
 </head>
 <body>
 
-    <div class="app-wrapper">
-        <header>
-            <a href="/" class="logo-area">
-                <!-- Clean, solid geometric logo -->
-                <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="32" height="32" rx="8" fill="currentColor"/>
-                    <path d="M16 8L24 14.5V23H8V14.5L16 8Z" stroke="white" stroke-width="2" stroke-linejoin="round"/>
-                </svg>
-                Android Icon AI
-            </a>
-            <nav class="nav-links">
-                <a href="#gallery">Gallery</a>
-                <a href="#examples">Examples</a>
-                <a href="#guide">Icon Guide</a>
-                <a href="#faq">FAQ</a>
-            </nav>
-        </header>
+    <!-- Header -->
+    <header class="container">
+        <a href="#" class="brand">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85-.29-.15-.65-.06-.83.22l-1.88 3.24c-2.86-1.21-6.08-1.21-8.94 0L5.65 5.67c-.19-.29-.58-.38-.87-.22-.28.15-.4.54-.23.85l1.85 3.18C2.39 11.66 0 15.61 0 20h24c0-4.39-2.39-8.34-6.4-10.52zM7 16.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm10 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+            </svg>
+            Android Icon AI
+        </a>
+        <nav class="desktop-nav">
+            <a href="#">Gallery</a>
+            <a href="#">How it Works</a>
+            <a href="#">Pricing</a>
+            <a href="#">Docs</a>
+        </nav>
+    </header>
 
-        <main>
-            <!-- Core Workspace & Hero combined for conversion -->
-            <section class="workspace">
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-text">
+                <h1>Professional Android Icons in Seconds.</h1>
+                <p>Generate production-ready app icons from simple text prompts. Optimized for Material Design and Play Store standards.</p>
                 
-                <!-- Left: Hero Text & Generator Form -->
-                <div class="generator-side">
-                    <div class="hero-context">
-                        <h1>AI App Icon Generator</h1>
-                        <h2>Create Android & iOS App Icons with AI in seconds.</h2>
-                    </div>
-
-                    <div class="glass-panel">
-                        <form id="ai-form" onsubmit="event.preventDefault();">
-                            
-                            <div class="prompt-container">
-                                <textarea id="prompt" placeholder="Describe your app...&#10;&#10;Example: Modern fintech app with a 3D wallet, slate gray and blue accents" required></textarea>
-                            </div>
-
-                            <div class="chips-wrapper">
-                                <div class="chips-title">Example Prompts</div>
-                                <div class="chip-scroll">
-                                    <div class="chip" onclick="fillPrompt('Expense Tracker, minimalist pie chart, green background, highly polished')">Expense Tracker</div>
-                                    <div class="chip" onclick="fillPrompt('Crypto Wallet, solid 3D Bitcoin logo, dark mode, sharp edges')">Crypto Wallet</div>
-                                    <div class="chip" onclick="fillPrompt('Fitness app, abstract running shoe, energetic orange, flat design')">Fitness</div>
-                                    <div class="chip" onclick="fillPrompt('Travel planner, flat vector illustration of an airplane circling a globe')">Travel</div>
-                                    <div class="chip" onclick="fillPrompt('Food Delivery, minimalist burger icon, soft studio lighting, yellow background')">Food Delivery</div>
-                                </div>
-                            </div>
-
-                            <div class="settings-grid">
-                                <div class="setting-group">
-                                    <label>AI Model</label>
-                                    <select id="model-select">
-                                        <option value="gpt-image-2">Highest Quality (Recommended)</option>
-                                        <option value="black-forest-labs/flux-schnell">Fast Generation</option>
-                                    </select>
-                                </div>
-                                <div class="setting-group">
-                                    <label>Background</label>
-                                    <select id="bg-select">
-                                        <option value="Auto complementary background">Auto</option>
-                                        <option value="Solid white background">White</option>
-                                        <option value="Dark slate background">Dark</option>
-                                        <option value="Solid color background">Solid Color</option>
-                                        <option value="Solid white background (remove bg later)">Transparent</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="setting-group">
-                                <label>Icon Style</label>
-                                <div class="style-grid">
-                                    <input type="radio" name="style" id="s-3d" value="3D render, highly detailed" checked> <label for="s-3d">3D</label>
-                                    <input type="radio" name="style" id="s-glass" value="Frosted glass texture"> <label for="s-glass">Glass</label>
-                                    <input type="radio" name="style" id="s-material" value="Google Material Design"> <label for="s-material">Material</label>
-                                    <input type="radio" name="style" id="s-clay" value="Claymorphism, soft clay render"> <label for="s-clay">Clay</label>
-                                    <input type="radio" name="style" id="s-pixel" value="Pixel art style"> <label for="s-pixel">Pixel</label>
-                                    <input type="radio" name="style" id="s-neon" value="Sharp neon lines"> <label for="s-neon">Neon</label>
-                                    <input type="radio" name="style" id="s-grad" value="Smooth modern gradients"> <label for="s-grad">Gradient</label>
-                                    <input type="radio" name="style" id="s-min" value="Ultra minimalist vector"> <label for="s-min">Minimal</label>
-                                    <input type="radio" name="style" id="s-flat" value="Flat design vector"> <label for="s-flat">Flat</label>
-                                    <input type="radio" name="style" id="s-iso" value="Isometric 3D perspective"> <label for="s-iso">Isometric</label>
-                                    <input type="radio" name="style" id="s-mascot" value="Clean mascot logo"> <label for="s-mascot">Mascot</label>
-                                    <input type="radio" name="style" id="s-cartoon" value="Toon shaded cartoon style"> <label for="s-cartoon">Cartoon</label>
-                                </div>
-                            </div>
-
-                            <div class="toggle-row">
-                                <div class="toggle-info">
-                                    <strong>Optimized for Play Store</strong>
-                                    <span>Automatically adds safe area padding</span>
-                                </div>
-                                <label class="switch">
-                                    <input type="checkbox" id="safe-area" checked>
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-
-                            <button type="submit" id="generate-btn" class="btn-primary" style="width: 100%; margin-top: 16px; padding: 18px;">
-                                <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                                <span id="btn-text">Generate Icon</span>
-                            </button>
-                            <div id="error-msg" style="color: #ef4444; margin-top: 12px; font-size: 0.9rem; text-align: center; display: none;"></div>
-                        </form>
-                    </div>
-                </div>
-
-                <!-- Right: Visual Proof & Output Panel -->
-                <div class="visual-panel">
+                <div class="generator-box">
+                    <label>Describe your icon</label>
+                    <textarea id="prompt" placeholder="e.g., A minimalist geometric wolf head, material design style, dark mode"></textarea>
                     
-                    <!-- Default State: Pre-gen visual proof -->
-                    <div id="gallery-state">
-                        <div class="gallery-title">Recent Generations</div>
-                        <div class="pre-gen-gallery">
-                            <div class="gallery-item" data-tag="Finance" style="background-image: url('https://images.unsplash.com/photo-1614680376573-3e4e1ef4142a?q=80&w=400&auto=format&fit=crop');"></div>
-                            <div class="gallery-item" data-tag="Crypto" style="background-image: url('https://images.unsplash.com/photo-1621416894569-0f39ed31d247?q=80&w=400&auto=format&fit=crop');"></div>
-                            <div class="gallery-item" data-tag="Travel" style="background-image: url('https://images.unsplash.com/photo-1578894381163-e72c17f2d45f?q=80&w=400&auto=format&fit=crop');"></div>
-                            <div class="gallery-item" data-tag="Music" style="background-image: url('https://images.unsplash.com/photo-1619983081563-430f63602796?q=80&w=400&auto=format&fit=crop');"></div>
-                        </div>
-                        <p style="text-align: center; color: var(--text-muted); font-size: 0.9rem;">Join 10,000+ developers generating icons daily.</p>
+                    <div class="style-chips" id="style-container">
+                        <button type="button" class="chip active" data-style="Google Material Design">Material</button>
+                        <button type="button" class="chip" data-style="3D Render, highly detailed">3D Render</button>
+                        <button type="button" class="chip" data-style="Flat UI vector design">Flat UI</button>
                     </div>
-
-                    <!-- Loading State -->
-                    <div id="loading-state" style="display: none; text-align: center;">
-                        <div class="loader"></div>
-                        <p style="font-weight: 500;">Crafting your icon with AI...</p>
-                        <p style="font-size: 0.85rem; color: var(--text-muted);">Applying styles and optimizing padding</p>
-                    </div>
-
-                    <!-- Result State -->
-                    <div id="result-state" class="result-state">
-                        <div class="mockup-tabs">
-                            <div class="mockup-tab active" onclick="setMockup('style-ios', this)">iOS</div>
-                            <div class="mockup-tab" onclick="setMockup('style-android', this)">Android</div>
-                            <div class="mockup-tab" onclick="setMockup('style-play', this)">Play Store</div>
-                        </div>
-                        
-                        <div class="mockup-container">
-                            <img id="generated-icon" class="style-ios" src="" alt="Your generated app icon">
-                        </div>
-
-                        <div class="download-actions">
-                            <button class="btn-primary" onclick="downloadIcon(1024)">Download 1024px</button>
-                            <button class="btn-outline" onclick="downloadIcon(512)">Download 512px</button>
-                        </div>
-                    </div>
-
-                </div>
-            </section>
-
-            <!-- Heavy SEO Content Section -->
-            <section id="guide" class="seo-section">
-                <h3>The Complete App Icon Size Guide (2026)</h3>
-                <p>Generating the perfect image is only step one. Whether you are publishing to the Apple App Store or Google Play, your icon needs to meet strict dimensional and structural requirements. Our AI App Icon Generator handles the heavy lifting, but here is what developers need to know.</p>
-                
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Platform</th>
-                            <th>Required Dimensions</th>
-                            <th>Format</th>
-                            <th>Corners</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Google Play Store</td>
-                            <td>512 x 512 px</td>
-                            <td>PNG (32-bit)</td>
-                            <td>Leave square (Google masks to teardrop automatically)</td>
-                        </tr>
-                        <tr>
-                            <td>Apple App Store</td>
-                            <td>1024 x 1024 px</td>
-                            <td>PNG (No alpha)</td>
-                            <td>Leave square (Apple applies mask)</td>
-                        </tr>
-                        <tr>
-                            <td>Android Adaptive Icon</td>
-                            <td>108 x 108 dp</td>
-                            <td>SVG / PNG</td>
-                            <td>Transparent background required for foreground layer</td>
-                        </tr>
-                    </tbody>
-                </table>
-                
-                <h3>How AI Creates Icons</h3>
-                <p>Modern AI models like DALL-E 3 and Flux utilize diffusion technology. When you enter a prompt into our AI Android Icon Generator, the text is tokenized and fed into a neural network trained on millions of design assets. By specifying keywords like "3D", "Material Design", or "Flat vector", you constrain the latent space to output precise stylistic attributes. The generator automatically prepends constraints to prevent text artifacts and ensure the icon subject is centered perfectly within a square canvas.</p>
-            </section>
-
-            <section class="seo-section">
-                <h3>What Users Are Saying</h3>
-                <div class="testimonials-grid">
-                    <div class="testimonial-card">
-                        <div class="stars">★★★★★</div>
-                        <p>"Saved me hundreds of dollars on my indie app. The 'Highest Quality' model perfectly nailed the 3D clay style I was looking for."</p>
-                        <strong style="display: block; margin-top: 12px; color: var(--text-main);">— Sarah J., Indie Developer</strong>
-                    </div>
-                    <div class="testimonial-card">
-                        <div class="stars">★★★★★</div>
-                        <p>"The Play Store padding toggle is a lifesaver. Finally an AI tool that actually understands mobile developer requirements."</p>
-                        <strong style="display: block; margin-top: 12px; color: var(--text-main);">— Marcus T., UI Designer</strong>
-                    </div>
-                    <div class="testimonial-card">
-                        <div class="stars">★★★★★</div>
-                        <p>"I generate all my Next.js boilerplate logos using the Flat vector style. Super fast, clean, and entirely free."</p>
-                        <strong style="display: block; margin-top: 12px; color: var(--text-main);">— Elena R., Full Stack Eng</strong>
-                    </div>
-                </div>
-            </section>
-
-            <section id="faq" class="seo-section">
-                <h3>Frequently Asked Questions</h3>
-                
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">1. Is this AI app icon generator really free? <span>+</span></div>
-                    <div class="faq-answer">Yes, our tool is 100% free. You can generate unlimited app icons for your Android and iOS projects.</div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">2. Can I use these icons commercially? <span>+</span></div>
-                    <div class="faq-answer">Absolutely. The images generated are free of copyright restrictions. You can use them directly in the App Store, Google Play, or your commercial SaaS products.</div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">3. What sizes do the icons come in? <span>+</span></div>
-                    <div class="faq-answer">Our generator creates native 1024x1024 high-resolution images. You can use our built-in downloader to export perfectly scaled 512x512 versions for Android as well.</div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">4. Why does my icon have a background instead of being transparent? <span>+</span></div>
-                    <div class="faq-answer">Current generation AI models output flat images. While you can prompt for a "solid white background", you may need to use a standard background removal tool to create native transparent PNGs for layered adaptive icons.</div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">5. What is the difference between Fast and Highest Quality? <span>+</span></div>
-                    <div class="faq-answer">The 'Fast' model uses Flux Schnell for rapid iterations (2-3 seconds). 'Highest Quality' utilizes advanced multi-pass diffusion (DALL-E 3 API architecture) resulting in much better prompt adherence and detail, taking roughly 10-15 seconds.</div>
-                </div>
-            </section>
-
-        </main>
-        
-        <footer>
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <h4>Android Icon AI</h4>
-                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 16px;">The easiest way to generate premium, royalty-free app icons for your next big mobile or web project.</p>
-                    <p style="font-size: 0.85rem; color: var(--text-muted);">&copy; 2026 Built by <a href="https://gennfree.in" style="color: var(--brand); text-decoration: none; font-weight: 600;">Gennfree.in</a></p>
-                </div>
-                <div class="footer-col">
-                    <h4>Tools</h4>
-                    <ul>
-                        <li><a href="#">Android Icon Generator</a></li>
-                        <li><a href="#">iOS Icon Maker</a></li>
-                        <li><a href="#">macOS Icon Creator</a></li>
-                        <li><a href="#">Favicon Generator</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Resources</h4>
-                    <ul>
-                        <li><a href="#">Icon Gallery</a></li>
-                        <li><a href="#">Prompt Examples</a></li>
-                        <li><a href="#">App Store Guidelines</a></li>
-                        <li><a href="#">Blog</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Legal</h4>
-                    <ul>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">API Access</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                    </ul>
+                    
+                    <button id="generate-btn" class="btn-primary">
+                        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+                        <span>Generate Icon</span>
+                    </button>
+                    <div id="error-msg"></div>
                 </div>
             </div>
-        </footer>
-    </div>
-
-    <script>
-        // 1. Handle Prompt Chips
-        function fillPrompt(text) {
-            const textarea = document.getElementById('prompt');
-            textarea.value = text;
-            textarea.focus();
-        }
-
-        // 2. Handle FAQ Accordion
-        function toggleFaq(element) {
-            const answer = element.nextElementSibling;
-            const isVisible = answer.style.display === 'block';
-            answer.style.display = isVisible ? 'none' : 'block';
-            element.querySelector('span').innerText = isVisible ? '+' : '−';
-        }
-
-        // 3. Handle Mockup Toggling
-        function setMockup(className, tabElement) {
-            // Update tabs
-            document.querySelectorAll('.mockup-tab').forEach(t => t.classList.remove('active'));
-            tabElement.classList.add('active');
             
-            // Update Image class
-            const img = document.getElementById('generated-icon');
-            img.className = ''; // reset
-            img.classList.add(className);
-        }
+            <div class="preview-box">
+                <!-- Placeholder SVG -->
+                <svg id="preview-placeholder" class="preview-icon-placeholder" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                
+                <!-- Loading Spinner -->
+                <div class="loader" id="loader"></div>
+                
+                <!-- Output Image -->
+                <img id="generated-icon" alt="Your generated app icon" crossorigin="anonymous">
 
-        // 4. Core Application Logic (Puter.js integration)
-        const form = document.getElementById('ai-form');
-        const generateBtn = document.getElementById('generate-btn');
-        const btnText = document.getElementById('btn-text');
+                <!-- Download Overlay -->
+                <div class="download-overlay" id="download-overlay">
+                    <button class="btn-download" onclick="downloadIcon(1024)">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                        Download
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <h3>Play Store Ready</h3>
+                <p>Icons are generated at exact specifications (512x512) required for Google Play Console submission instantly.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                </div>
+                <h3>SVG & PNG Export</h3>
+                <p>Download crisp vectors for infinite scaling or optimized PNGs for immediate implementation.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                </div>
+                <h3>Style Consistency</h3>
+                <p>Maintain perfect visual harmony across your entire app ecosystem with persistent style seeds.</p>
+            </div>
+        </section>
+
+        <!-- Recent Generations Section -->
+        <section>
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+                        Recent Generations
+                    </h2>
+                    <p class="section-subtitle">Explore what other developers are building.</p>
+                </div>
+                <a href="#" class="link-text">View full gallery →</a>
+            </div>
+
+            <div class="recent-grid">
+                <div class="recent-card"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg></div>
+                <div class="recent-card"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+                <div class="recent-card"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+                <div class="recent-card"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg></div>
+            </div>
+        </section>
+
+        <!-- Workflow Section -->
+        <section class="workflow-section">
+            <h2 class="section-title" style="justify-content: center;">Streamlined Workflow</h2>
+            
+            <div class="workflow-list">
+                <div class="workflow-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Describe Idea</h4>
+                        <p>Input your core concept and stylistic requirements.</p>
+                    </div>
+                </div>
+                
+                <div class="workflow-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Select Style</h4>
+                        <p>Choose from Material, 3D Core, Minimalist, or Flat.</p>
+                    </div>
+                </div>
+                
+                <div class="workflow-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Deploy</h4>
+                        <p>Download production-ready assets and implement.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section class="pricing-section">
+            <h2 class="section-title">Simple, Transparent Pricing</h2>
+            <p class="section-subtitle">Pay only for what you generate. No monthly subscriptions.</p>
+
+            <div class="pricing-card">
+                <div class="pro-badge">PRO</div>
+                <h3>Pay As You Go</h3>
+                <div class="price">$0.05 <span>/ icon</span></div>
+                
+                <ul class="pricing-features">
+                    <li>High-resolution 1024x1024</li>
+                    <li>Commercial rights included</li>
+                    <li>Style consistency locking</li>
+                </ul>
+                
+                <button class="btn-outline">Buy Credits</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="container">
+        <a href="#" class="brand">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85-.29-.15-.65-.06-.83.22l-1.88 3.24c-2.86-1.21-6.08-1.21-8.94 0L5.65 5.67c-.19-.29-.58-.38-.87-.22-.28.15-.4.54-.23.85l1.85 3.18C2.39 11.66 0 15.61 0 20h24c0-4.39-2.39-8.34-6.4-10.52zM7 16.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm10 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+            </svg>
+            Android Icon AI
+        </a>
         
-        const galleryState = document.getElementById('gallery-state');
-        const loadingState = document.getElementById('loading-state');
-        const resultState = document.getElementById('result-state');
-        const imgOutput = document.getElementById('generated-icon');
+        <div class="footer-links">
+            <a href="#">Terms of Service</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">API Reference</a>
+            <a href="#">Twitter</a>
+            <a href="#">Github</a>
+        </div>
+        
+        <div class="copyright">
+            © 2026 Android Icon AI. Built for developers.
+        </div>
+    </footer>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="mobile-nav">
+        <a href="#" class="mobile-nav-item active">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+            <span>Generate</span>
+        </a>
+        <a href="#" class="mobile-nav-item">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+            <span>Gallery</span>
+        </a>
+        <a href="#" class="mobile-nav-item">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+            <span>Workflow</span>
+        </a>
+        <a href="#" class="mobile-nav-item">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <span>Pricing</span>
+        </a>
+    </nav>
+
+    <!-- ========================================== -->
+    <!-- JAVASCRIPT APP LOGIC (Puter.js Integration)-->
+    <!-- ========================================== -->
+    <script>
+        // Chip Selection Logic
+        const styleContainer = document.getElementById('style-container');
+        const chips = styleContainer.querySelectorAll('.chip');
+        let selectedStyle = "Google Material Design"; // Default
+
+        chips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                chips.forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                selectedStyle = chip.getAttribute('data-style');
+            });
+        });
+
+        // Generation Logic
+        const generateBtn = document.getElementById('generate-btn');
+        const btnText = generateBtn.querySelector('span');
+        const promptInput = document.getElementById('prompt');
         const errorMsg = document.getElementById('error-msg');
+        
+        // Preview elements
+        const previewPlaceholder = document.getElementById('preview-placeholder');
+        const loader = document.getElementById('loader');
+        const imgOutput = document.getElementById('generated-icon');
+        const downloadOverlay = document.getElementById('download-overlay');
 
-        let currentImageObj = null; // Store the original image element for canvas resizing
-
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const basePrompt = document.getElementById('prompt').value.trim();
-            if (!basePrompt) return;
-
-            // Gather settings
-            const model = document.getElementById('model-select').value;
-            const style = document.querySelector('input[name="style"]:checked').value;
-            const bg = document.getElementById('bg-select').value;
-            const safeArea = document.getElementById('safe-area').checked;
-
-            // Build strict system prompt
-            let finalPrompt = `A high-quality, professional app icon design. Subject: ${basePrompt}. Style: ${style}. ${bg}. Center the main subject perfectly within the square. `;
-            
-            if (safeArea) {
-                finalPrompt += "Ensure ample negative space and padding around the edges of the canvas. Do not let the subject touch the borders. ";
+        generateBtn.addEventListener('click', async () => {
+            const basePrompt = promptInput.value.trim();
+            if (!basePrompt) {
+                errorMsg.textContent = "Please enter a description for your icon.";
+                errorMsg.style.display = "block";
+                return;
             }
-            finalPrompt += "No text, no letters, no words, no watermarks, no UI elements. Perfect square canvas.";
 
-            // UI Transitions
+            // Construct strict prompt
+            const finalPrompt = `A high-quality, professional app icon design. Subject: ${basePrompt}. Style: ${selectedStyle}. Solid background. Center the main subject perfectly within the square. Ensure ample negative space and padding around the edges. No text, no letters, no words, no UI elements. Perfect square canvas.`;
+
+            // UI State: Loading
             errorMsg.style.display = 'none';
             generateBtn.disabled = true;
             btnText.textContent = 'Generating...';
             
-            galleryState.style.display = 'none';
-            resultState.style.display = 'none';
-            loadingState.style.display = 'block';
+            previewPlaceholder.style.display = 'none';
+            imgOutput.style.display = 'none';
+            downloadOverlay.style.display = 'none';
+            loader.style.display = 'block';
 
             try {
-                // Call Puter AI
-                const imageElement = await puter.ai.txt2img(finalPrompt, { model: model });
+                // Call Puter AI (Defaulting to DALL-E 3 architecture equivalent for high quality)
+                const imageElement = await puter.ai.txt2img(finalPrompt);
                 
                 // Set the result
                 imgOutput.src = imageElement.src;
-                currentImageObj = imageElement; // Cache for downloads
                 
                 imgOutput.onload = () => {
-                    loadingState.style.display = 'none';
-                    resultState.style.display = 'block';
+                    loader.style.display = 'none';
+                    imgOutput.style.display = 'block';
+                    downloadOverlay.style.display = 'flex';
+                    
                     generateBtn.disabled = false;
                     btnText.textContent = 'Generate Another';
-                    
-                    // Scroll to result slightly to ensure visibility on mobile
-                    if(window.innerWidth < 900) {
-                        resultState.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
                 };
 
             } catch (error) {
                 console.error("Generation Error:", error);
-                loadingState.style.display = 'none';
-                galleryState.style.display = 'block'; // Revert
+                loader.style.display = 'none';
+                previewPlaceholder.style.display = 'block';
+                
                 errorMsg.textContent = `Error: ${error.message || 'The AI service is currently busy. Please try again.'}`;
                 errorMsg.style.display = 'block';
                 
@@ -694,26 +943,29 @@
             }
         });
 
-        // 5. Advanced Download Logic (Resizing via Canvas)
+        // Safe Canvas Download Logic
         function downloadIcon(targetSize) {
-            if (!currentImageObj) return;
+            if (!imgOutput.src || imgOutput.src === "") return;
 
             const canvas = document.createElement('canvas');
             canvas.width = targetSize;
             canvas.height = targetSize;
             const ctx = canvas.getContext('2d');
             
-            // Draw image on canvas resized
-            ctx.drawImage(currentImageObj, 0, 0, targetSize, targetSize);
-            
-            // Trigger download
-            const dataURL = canvas.toDataURL('image/png');
-            const link = document.createElement('a');
-            link.download = `app-icon-${targetSize}x${targetSize}.png`;
-            link.href = dataURL;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            try {
+                ctx.drawImage(imgOutput, 0, 0, targetSize, targetSize);
+                const dataURL = canvas.toDataURL('image/png');
+                
+                const link = document.createElement('a');
+                link.download = `android-icon-${targetSize}x${targetSize}.png`;
+                link.href = dataURL;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } catch (err) {
+                console.error("Canvas draw exception (likely cross-origin): ", err);
+                alert("Download blocked due to cross-origin restrictions. Please right-click the image and select 'Save Image As...'.");
+            }
         }
     </script>
 </body>
