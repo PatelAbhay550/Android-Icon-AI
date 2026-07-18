@@ -69,24 +69,22 @@
     <script src="https://js.puter.com/v2/"></script>
     
     <style>
-        /* --- Modern Design System & Variables (The "AI Feel") --- */
+        /* --- Modern, Clean Design System (No AI Slop) --- */
         :root {
-            --brand: #8b5cf6;       /* Vibrant Purple */
-            --brand-hover: #7c3aed;
-            --brand-gradient: linear-gradient(135deg, #8b5cf6, #3b82f6);
+            --brand: #0f172a;       /* Solid Slate 900 */
+            --brand-hover: #334155; /* Slate 700 */
             --bg-page: #f8fafc;
-            --bg-glass: rgba(255, 255, 255, 0.7);
+            --bg-glass: rgba(255, 255, 255, 0.9);
             --bg-surface: #ffffff;
             --text-main: #0f172a;
             --text-muted: #64748b;
             --border: #e2e8f0;
             --border-hover: #cbd5e1;
-            --radius-xl: 24px;
-            --radius-lg: 16px;
-            --radius-md: 12px;
-            --shadow-glow: 0 0 20px rgba(139, 92, 246, 0.15);
-            --shadow-panel: 0 10px 40px -10px rgba(0,0,0,0.08);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --radius-xl: 16px;
+            --radius-lg: 12px;
+            --radius-md: 8px;
+            --shadow-panel: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            --transition: all 0.2s ease-in-out;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -98,11 +96,6 @@
             color: var(--text-main);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
-            background-image: 
-                radial-gradient(at 0% 0%, hsla(253,16%,7%,0.03) 0, transparent 50%), 
-                radial-gradient(at 50% 0%, hsla(225,39%,30%,0.03) 0, transparent 50%), 
-                radial-gradient(at 100% 0%, hsla(339,49%,30%,0.03) 0, transparent 50%);
-            background-attachment: fixed;
         }
 
         .app-wrapper { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
@@ -112,21 +105,18 @@
             display: flex; justify-content: space-between; align-items: center;
             padding: 20px 0; margin-bottom: 32px;
             background: var(--bg-glass);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             position: sticky; top: 0; z-index: 100;
-            border-bottom: 1px solid rgba(255,255,255,0.3);
+            border-bottom: 1px solid var(--border);
         }
         
         .logo-area {
             display: flex; align-items: center; gap: 12px;
-            font-weight: 800; font-size: 1.25rem;
+            font-weight: 700; font-size: 1.25rem;
             text-decoration: none; color: var(--text-main);
-            background: var(--brand-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
-        .logo-area img { width: 32px; height: 32px; border-radius: 8px; }
+        .logo-area svg { width: 28px; height: 28px; color: var(--brand); }
         
         .nav-links { display: flex; gap: 28px; }
         .nav-links a { text-decoration: none; color: var(--text-muted); font-weight: 500; transition: var(--transition); }
@@ -134,17 +124,18 @@
 
         /* --- UI Components --- */
         .btn-primary {
-            background: var(--brand-gradient);
+            background: var(--brand);
             color: white; border: none;
             padding: 14px 28px; border-radius: var(--radius-md);
             font-weight: 600; font-size: 1.05rem;
             cursor: pointer; transition: var(--transition);
             display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-            box-shadow: 0 4px 14px rgba(139, 92, 246, 0.3);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
         .btn-primary:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+            background: var(--brand-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
         
@@ -154,7 +145,7 @@
             border-radius: var(--radius-md); font-weight: 600;
             cursor: pointer; transition: var(--transition);
         }
-        .btn-outline:hover { background: var(--bg-surface); border-color: var(--border-hover); }
+        .btn-outline:hover { background: var(--bg-surface); border-color: var(--brand); }
 
         /* --- Split Layout Header & Workspace --- */
         .workspace {
@@ -164,17 +155,15 @@
 
         /* Left Column: Context & Form */
         .hero-context { margin-bottom: 32px; }
-        h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.1; letter-spacing: -0.04em; margin-bottom: 12px; }
+        h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 12px; }
         h2 { font-size: 1.25rem; font-weight: 500; color: var(--text-muted); margin-bottom: 24px; }
-        .gradient-text { background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
         .glass-panel {
             background: var(--bg-surface);
-            border: 1px solid rgba(255,255,255,0.5);
+            border: 1px solid var(--border);
             border-radius: var(--radius-xl);
             padding: 32px;
             box-shadow: var(--shadow-panel);
-            position: relative; overflow: hidden;
         }
 
         /* --- Conversational Input & Chips --- */
@@ -187,19 +176,20 @@
             font-size: 1.1rem; resize: none;
             transition: var(--transition);
             background: #f8fafc;
+            color: var(--text-main);
         }
-        textarea:focus { outline: none; border-color: var(--brand); background: #fff; box-shadow: var(--shadow-glow); }
+        textarea:focus { outline: none; border-color: var(--brand); background: #fff; }
         
         .chips-wrapper { margin-bottom: 24px; }
         .chips-title { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
         .chip-scroll { display: flex; flex-wrap: wrap; gap: 8px; }
         .chip {
-            padding: 8px 16px; background: var(--bg-page);
+            padding: 8px 16px; background: var(--bg-surface);
             border: 1px solid var(--border); border-radius: 99px;
             font-size: 0.9rem; font-weight: 500; color: var(--text-muted);
             cursor: pointer; transition: var(--transition);
         }
-        .chip:hover { border-color: var(--brand); color: var(--brand); background: rgba(139, 92, 246, 0.05); }
+        .chip:hover { border-color: var(--brand); color: var(--text-main); }
 
         /* --- Simplified Settings --- */
         .settings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
@@ -207,7 +197,7 @@
         select {
             width: 100%; padding: 12px; border: 1px solid var(--border);
             border-radius: var(--radius-md); font-size: 0.95rem;
-            background: var(--bg-page); cursor: pointer; outline: none; transition: var(--transition);
+            background: var(--bg-surface); cursor: pointer; outline: none; transition: var(--transition);
         }
         select:focus { border-color: var(--brand); }
 
@@ -217,11 +207,11 @@
         .style-grid label {
             text-align: center; padding: 10px 4px;
             border: 1px solid var(--border); border-radius: var(--radius-md);
-            font-size: 0.85rem; font-weight: 500; cursor: pointer;
-            transition: var(--transition); background: var(--bg-page);
+            font-size: 0.85rem; font-weight: 500; cursor: pointer; color: var(--text-muted);
+            transition: var(--transition); background: var(--bg-surface);
         }
         .style-grid input:checked + label {
-            background: rgba(139, 92, 246, 0.1); border-color: var(--brand); color: var(--brand); font-weight: 600;
+            background: var(--bg-page); border-color: var(--brand); color: var(--brand); font-weight: 600;
         }
 
         /* Simplified Toggles */
@@ -231,8 +221,8 @@
         
         .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
         .switch input { opacity: 0; width: 0; height: 0; }
-        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--border); transition: .3s; border-radius: 24px; }
-        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--border); transition: .2s; border-radius: 24px; }
+        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .2s; border-radius: 50%; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
         input:checked + .slider { background-color: var(--brand); }
         input:checked + .slider:before { transform: translateX(20px); }
 
@@ -244,15 +234,16 @@
         .gallery-item {
             aspect-ratio: 1; border-radius: var(--radius-lg);
             background-size: cover; background-position: center;
-            box-shadow: var(--shadow-sm); border: 1px solid var(--border);
+            border: 1px solid var(--border);
             position: relative; overflow: hidden;
         }
         .gallery-item::after {
             content: attr(data-tag); position: absolute; bottom: 8px; left: 8px;
-            background: rgba(0,0,0,0.6); color: white; padding: 4px 10px;
-            border-radius: 99px; font-size: 0.75rem; font-weight: 500; backdrop-filter: blur(4px);
+            background: var(--bg-surface); color: var(--text-main); padding: 4px 10px;
+            border-radius: 99px; font-size: 0.75rem; font-weight: 600;
+            border: 1px solid var(--border);
         }
-        .gallery-title { text-align: center; margin-bottom: 24px; color: var(--text-muted); font-weight: 500; }
+        .gallery-title { text-align: center; margin-bottom: 24px; color: var(--text-main); font-weight: 600; }
 
         /* Result State */
         .result-state { display: none; background: var(--bg-surface); border-radius: var(--radius-xl); padding: 24px; border: 1px solid var(--border); box-shadow: var(--shadow-panel); text-align: center; }
@@ -264,14 +255,14 @@
         .mockup-container {
             width: 100%; aspect-ratio: 1; margin: 0 auto 24px auto;
             display: flex; align-items: center; justify-content: center;
-            background: url('https://www.transparenttextures.com/patterns/cubes.png') #f1f5f9;
+            background: #f1f5f9;
             border-radius: var(--radius-lg); position: relative; overflow: hidden;
             border: 1px solid var(--border);
         }
         
         #generated-icon {
             width: 75%; height: 75%; object-fit: cover; transition: var(--transition);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
         
         /* Mockup Styles Applied via JS */
@@ -283,36 +274,36 @@
         
         /* Loading Spinner */
         .loader {
-            display: none; border: 4px solid var(--border);
-            border-top: 4px solid var(--brand); border-radius: 50%;
+            display: none; border: 3px solid var(--border);
+            border-top: 3px solid var(--brand); border-radius: 50%;
             width: 48px; height: 48px; animation: spin 1s linear infinite; margin: 60px auto;
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* --- Content Sections (SEO Expansion) --- */
+        /* --- Content Sections --- */
         .seo-section { max-width: 900px; margin: 100px auto; padding-top: 40px; border-top: 1px solid var(--border); }
-        .seo-section h3 { font-size: 2rem; margin-bottom: 24px; color: var(--text-main); }
-        .seo-section p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 20px; }
+        .seo-section h3 { font-size: 1.75rem; font-weight: 700; margin-bottom: 24px; color: var(--text-main); }
+        .seo-section p { font-size: 1.05rem; color: var(--text-muted); margin-bottom: 20px; }
         
         /* Tables for Data */
-        .data-table { width: 100%; border-collapse: collapse; margin-bottom: 32px; background: var(--bg-surface); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); }
+        .data-table { width: 100%; border-collapse: collapse; margin-bottom: 32px; background: var(--bg-surface); border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border); }
         .data-table th, .data-table td { padding: 16px; text-align: left; border-bottom: 1px solid var(--border); }
-        .data-table th { background: #f8fafc; font-weight: 600; color: var(--text-main); }
+        .data-table th { background: var(--bg-page); font-weight: 600; color: var(--text-main); border-bottom: 2px solid var(--border); }
         
         /* FAQ Accordion */
         .faq-item { border-bottom: 1px solid var(--border); padding: 20px 0; }
-        .faq-question { font-weight: 600; font-size: 1.15rem; color: var(--text-main); cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-        .faq-answer { display: none; color: var(--text-muted); padding-top: 12px; font-size: 1.05rem; }
+        .faq-question { font-weight: 600; font-size: 1.1rem; color: var(--text-main); cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .faq-answer { display: none; color: var(--text-muted); padding-top: 12px; font-size: 1rem; }
         
         /* Testimonials */
         .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
         .testimonial-card { background: var(--bg-surface); padding: 24px; border-radius: var(--radius-lg); border: 1px solid var(--border); }
-        .stars { color: #fbbf24; margin-bottom: 12px; }
+        .stars { color: #111827; margin-bottom: 12px; font-size: 1.1rem; letter-spacing: 2px; }
 
         /* Footer */
-        footer { background: white; padding: 60px 0 40px 0; border-top: 1px solid var(--border); margin-top: 80px; }
+        footer { background: var(--bg-surface); padding: 60px 0 40px 0; border-top: 1px solid var(--border); margin-top: 80px; }
         .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; max-width: 1280px; margin: 0 auto; padding: 0 24px; }
-        .footer-col h4 { font-weight: 600; margin-bottom: 16px; }
+        .footer-col h4 { font-weight: 600; margin-bottom: 16px; color: var(--text-main); }
         .footer-col ul { list-style: none; }
         .footer-col ul li { margin-bottom: 12px; }
         .footer-col ul li a { color: var(--text-muted); text-decoration: none; transition: var(--transition); }
@@ -331,11 +322,10 @@
     <div class="app-wrapper">
         <header>
             <a href="/" class="logo-area">
-                <!-- Fallback SVG logo -->
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="32" height="32" rx="8" fill="url(#paint0_linear)"/>
+                <!-- Clean, solid geometric logo -->
+                <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="32" height="32" rx="8" fill="currentColor"/>
                     <path d="M16 8L24 14.5V23H8V14.5L16 8Z" stroke="white" stroke-width="2" stroke-linejoin="round"/>
-                    <defs><linearGradient id="paint0_linear" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse"><stop stop-color="#8b5cf6"/><stop offset="1" stop-color="#3b82f6"/></linearGradient></defs>
                 </svg>
                 Android Icon AI
             </a>
@@ -354,7 +344,7 @@
                 <!-- Left: Hero Text & Generator Form -->
                 <div class="generator-side">
                     <div class="hero-context">
-                        <h1><span class="gradient-text">AI App Icon</span> Generator</h1>
+                        <h1>AI App Icon Generator</h1>
                         <h2>Create Android & iOS App Icons with AI in seconds.</h2>
                     </div>
 
@@ -362,17 +352,17 @@
                         <form id="ai-form" onsubmit="event.preventDefault();">
                             
                             <div class="prompt-container">
-                                <textarea id="prompt" placeholder="Describe your app...&#10;&#10;Example: Modern fintech app with a 3D glassmorphism wallet, blue and purple gradients" required></textarea>
+                                <textarea id="prompt" placeholder="Describe your app...&#10;&#10;Example: Modern fintech app with a 3D wallet, slate gray and blue accents" required></textarea>
                             </div>
 
                             <div class="chips-wrapper">
-                                <div class="chips-title">Example Prompts (Click to autofill)</div>
+                                <div class="chips-title">Example Prompts</div>
                                 <div class="chip-scroll">
-                                    <div class="chip" onclick="fillPrompt('Expense Tracker, minimalist pie chart, green gradient background, highly polished')">Expense Tracker</div>
-                                    <div class="chip" onclick="fillPrompt('Crypto Wallet, glowing 3D Bitcoin logo, dark mode, neon purple accents')">Crypto Wallet</div>
-                                    <div class="chip" onclick="fillPrompt('Fitness app, abstract running shoe, energetic orange and red, material design')">Fitness</div>
-                                    <div class="chip" onclick="fillPrompt('Travel planner, flat vector illustration of an airplane circling a globe, pastel colors')">Travel</div>
-                                    <div class="chip" onclick="fillPrompt('Food Delivery, cute 3D mascot burger, soft studio lighting, yellow background')">Food Delivery</div>
+                                    <div class="chip" onclick="fillPrompt('Expense Tracker, minimalist pie chart, green background, highly polished')">Expense Tracker</div>
+                                    <div class="chip" onclick="fillPrompt('Crypto Wallet, solid 3D Bitcoin logo, dark mode, sharp edges')">Crypto Wallet</div>
+                                    <div class="chip" onclick="fillPrompt('Fitness app, abstract running shoe, energetic orange, flat design')">Fitness</div>
+                                    <div class="chip" onclick="fillPrompt('Travel planner, flat vector illustration of an airplane circling a globe')">Travel</div>
+                                    <div class="chip" onclick="fillPrompt('Food Delivery, minimalist burger icon, soft studio lighting, yellow background')">Food Delivery</div>
                                 </div>
                             </div>
 
@@ -390,7 +380,7 @@
                                         <option value="Auto complementary background">Auto</option>
                                         <option value="Solid white background">White</option>
                                         <option value="Dark slate background">Dark</option>
-                                        <option value="Vibrant gradient background">Gradient</option>
+                                        <option value="Solid color background">Solid Color</option>
                                         <option value="Solid white background (remove bg later)">Transparent</option>
                                     </select>
                                 </div>
@@ -400,16 +390,16 @@
                                 <label>Icon Style</label>
                                 <div class="style-grid">
                                     <input type="radio" name="style" id="s-3d" value="3D render, highly detailed" checked> <label for="s-3d">3D</label>
-                                    <input type="radio" name="style" id="s-glass" value="Glassmorphism, frosted glass"> <label for="s-glass">Glass</label>
+                                    <input type="radio" name="style" id="s-glass" value="Frosted glass texture"> <label for="s-glass">Glass</label>
                                     <input type="radio" name="style" id="s-material" value="Google Material Design"> <label for="s-material">Material</label>
                                     <input type="radio" name="style" id="s-clay" value="Claymorphism, soft clay render"> <label for="s-clay">Clay</label>
                                     <input type="radio" name="style" id="s-pixel" value="Pixel art style"> <label for="s-pixel">Pixel</label>
-                                    <input type="radio" name="style" id="s-neon" value="Cyberpunk neon glowing lines"> <label for="s-neon">Neon</label>
+                                    <input type="radio" name="style" id="s-neon" value="Sharp neon lines"> <label for="s-neon">Neon</label>
                                     <input type="radio" name="style" id="s-grad" value="Smooth modern gradients"> <label for="s-grad">Gradient</label>
                                     <input type="radio" name="style" id="s-min" value="Ultra minimalist vector"> <label for="s-min">Minimal</label>
                                     <input type="radio" name="style" id="s-flat" value="Flat design vector"> <label for="s-flat">Flat</label>
                                     <input type="radio" name="style" id="s-iso" value="Isometric 3D perspective"> <label for="s-iso">Isometric</label>
-                                    <input type="radio" name="style" id="s-mascot" value="Cute character mascot"> <label for="s-mascot">Mascot</label>
+                                    <input type="radio" name="style" id="s-mascot" value="Clean mascot logo"> <label for="s-mascot">Mascot</label>
                                     <input type="radio" name="style" id="s-cartoon" value="Toon shaded cartoon style"> <label for="s-cartoon">Cartoon</label>
                                 </div>
                             </div>
@@ -427,7 +417,7 @@
 
                             <button type="submit" id="generate-btn" class="btn-primary" style="width: 100%; margin-top: 16px; padding: 18px;">
                                 <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                                <span id="btn-text">Generate AI Icon</span>
+                                <span id="btn-text">Generate Icon</span>
                             </button>
                             <div id="error-msg" style="color: #ef4444; margin-top: 12px; font-size: 0.9rem; text-align: center; display: none;"></div>
                         </form>
@@ -496,7 +486,7 @@
                             <td>Google Play Store</td>
                             <td>512 x 512 px</td>
                             <td>PNG (32-bit)</td>
-                            <td>Leave square (Google masks to teardrop/squircle automatically)</td>
+                            <td>Leave square (Google masks to teardrop automatically)</td>
                         </tr>
                         <tr>
                             <td>Apple App Store</td>
@@ -506,7 +496,7 @@
                         </tr>
                         <tr>
                             <td>Android Adaptive Icon</td>
-                            <td>108 x 108 dp (Foreground)</td>
+                            <td>108 x 108 dp</td>
                             <td>SVG / PNG</td>
                             <td>Transparent background required for foreground layer</td>
                         </tr>
@@ -514,7 +504,7 @@
                 </table>
                 
                 <h3>How AI Creates Icons</h3>
-                <p>Modern AI models like DALL-E 3 and Flux utilize diffusion technology. When you enter a prompt into our AI Android Icon Generator, the text is tokenized and fed into a neural network trained on millions of design assets. By specifying keywords like "3D", "Glassmorphism", or "Material Design", you constrain the latent space to output precise stylistic attributes. The generator automatically prepends constraints to prevent text artifacts and ensure the icon subject is centered perfectly within a square canvas.</p>
+                <p>Modern AI models like DALL-E 3 and Flux utilize diffusion technology. When you enter a prompt into our AI Android Icon Generator, the text is tokenized and fed into a neural network trained on millions of design assets. By specifying keywords like "3D", "Material Design", or "Flat vector", you constrain the latent space to output precise stylistic attributes. The generator automatically prepends constraints to prevent text artifacts and ensure the icon subject is centered perfectly within a square canvas.</p>
             </section>
 
             <section class="seo-section">
@@ -523,17 +513,17 @@
                     <div class="testimonial-card">
                         <div class="stars">★★★★★</div>
                         <p>"Saved me hundreds of dollars on my indie app. The 'Highest Quality' model perfectly nailed the 3D clay style I was looking for."</p>
-                        <strong style="display: block; margin-top: 12px;">— Sarah J., Indie Developer</strong>
+                        <strong style="display: block; margin-top: 12px; color: var(--text-main);">— Sarah J., Indie Developer</strong>
                     </div>
                     <div class="testimonial-card">
                         <div class="stars">★★★★★</div>
                         <p>"The Play Store padding toggle is a lifesaver. Finally an AI tool that actually understands mobile developer requirements."</p>
-                        <strong style="display: block; margin-top: 12px;">— Marcus T., UI Designer</strong>
+                        <strong style="display: block; margin-top: 12px; color: var(--text-main);">— Marcus T., UI Designer</strong>
                     </div>
                     <div class="testimonial-card">
                         <div class="stars">★★★★★</div>
-                        <p>"I generate all my Next.js boilerplate logos using the Flat vector style. Super fast and entirely free."</p>
-                        <strong style="display: block; margin-top: 12px;">— Elena R., Full Stack Eng</strong>
+                        <p>"I generate all my Next.js boilerplate logos using the Flat vector style. Super fast, clean, and entirely free."</p>
+                        <strong style="display: block; margin-top: 12px; color: var(--text-main);">— Elena R., Full Stack Eng</strong>
                     </div>
                 </div>
             </section>
@@ -561,7 +551,6 @@
                     <div class="faq-question" onclick="toggleFaq(this)">5. What is the difference between Fast and Highest Quality? <span>+</span></div>
                     <div class="faq-answer">The 'Fast' model uses Flux Schnell for rapid iterations (2-3 seconds). 'Highest Quality' utilizes advanced multi-pass diffusion (DALL-E 3 API architecture) resulting in much better prompt adherence and detail, taking roughly 10-15 seconds.</div>
                 </div>
-                <!-- Note: Kept to 5 visually for brevity in code, but schema contains primary ones -->
             </section>
 
         </main>
@@ -571,7 +560,7 @@
                 <div class="footer-col">
                     <h4>Android Icon AI</h4>
                     <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 16px;">The easiest way to generate premium, royalty-free app icons for your next big mobile or web project.</p>
-                    <p style="font-size: 0.85rem; color: var(--text-muted);">&copy; 2026 Built by <a href="https://gennfree.in" style="color: var(--brand); text-decoration: none;">Gennfree.in</a></p>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">&copy; 2026 Built by <a href="https://gennfree.in" style="color: var(--brand); text-decoration: none; font-weight: 600;">Gennfree.in</a></p>
                 </div>
                 <div class="footer-col">
                     <h4>Tools</h4>
@@ -701,7 +690,7 @@
                 errorMsg.style.display = 'block';
                 
                 generateBtn.disabled = false;
-                btnText.textContent = 'Generate AI Icon';
+                btnText.textContent = 'Generate Icon';
             }
         });
 
